@@ -11,31 +11,56 @@ public class Characters {
     private String name;
     private int initialShield;
 
-    public Characters(int hp, int damage, int shield, int weight, int initialShield) {
+    public Characters(int hp, int damage, int shield, int weight, String name, int initialShield) {
         this.hp = hp;
         this.damage = damage;
         this.shield = shield;
+        this.name = name;
         this.weight = weight;
         this.initialShield = initialShield;
     }
 
-    public void attack() {
-        System.out.println("J'attaque");
-    }
 
     public void takeDamage(int damage) {
         Random r = new Random();
         int random = r.nextInt(101);
+        //Toucher
         if (random <= this.weight){
-            this.hp = this.hp - damage;
+            if (this.shield > 0) {
+                this.shield = this.shield - damage;
+                if (this.shield < 0){
+                    this.hp = this.hp + (this.shield / 2);
+                    this.shield = 0;
+                }
+            }
+            else {
+                this.shield = 0;
+                this.hp = this.hp - damage;
+            }
             System.out.println("Touché !");
+        //Errafler
         } else if (random <= this.weight + 10) {
-            this.hp = this.hp - (damage / 2);
+            if (this.shield > 0) {
+                this.shield = this.shield - (damage / 2);
+            }
+            else {
+                this.shield = 0;
+                this.hp = this.hp - (damage / 2);
+            }
             System.out.println("Éraflé !");
-        }
-        else {
+        //Raté
+        } else {
             System.out.println("Raté !");
         }
+        if (this.hp < 0) {
+            System.out.println(this.name + " est mort");
+            this.hp = 0;
+        }
+        System.out.println("shield :" + this.shield + " vie : " + this.hp);
+    }
+
+    public void attack(Characters Ennemis) {
+        Ennemis.takeDamage(this.damage);
     }
 
     public void retrieveShield(){
@@ -48,6 +73,13 @@ public class Characters {
         }
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     // Getter and Setter of HP
     public int getHp() {

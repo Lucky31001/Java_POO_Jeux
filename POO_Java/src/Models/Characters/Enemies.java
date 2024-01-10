@@ -2,27 +2,27 @@ package Models.Characters;
 
 public class Enemies extends Characters {
 
-    private String type;
+    private int type;
 
-    public Enemies(int hp, int damage, int shield, int weight, int initialShield, String type) {
-        super(hp, damage, shield, weight, initialShield);
+    public Enemies(int hp, int damage, int shield, int weight, String name, int initialShield, int type) {
+        super(hp, damage, shield, weight, name, initialShield);
         this.type = type;
         //Cargo
-        if (this.type == "1"){
+        if (this.type == 1){
             setHp(100);
             setDamage(30);
             setShield(75);
             setInitialShield(75);
             setWeight(80);
         //Chasseur
-        } else if (this.type == "2") {
+        } else if (this.type == 2) {
             setHp(50);
             setDamage(10);
             setShield(25);
             setInitialShield(25);
             setWeight(20);
         //Patrouilleur
-        } else if (this.type == "3") {
+        } else if (this.type == 3) {
             setHp(75);
             setDamage(20);
             setShield(50);
@@ -33,11 +33,11 @@ public class Enemies extends Characters {
             System.out.println("Ce type n'existe pas");
         }
     }
-    public String getType() {
+    public int getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(int type) {
         this.type = type;
     }
 }
