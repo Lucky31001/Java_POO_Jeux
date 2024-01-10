@@ -6,15 +6,17 @@ public class Characters {
 
     private int hp;
     private int damage;
-    private int defence;
+    private int shield;
     private int weight;
     private String name;
+    private int initialShield;
 
-    public Characters(int hp, int damage, int defence, int weight) {
+    public Characters(int hp, int damage, int shield, int weight, int initialShield) {
         this.hp = hp;
         this.damage = damage;
-        this.defence = defence;
+        this.shield = shield;
         this.weight = weight;
+        this.initialShield = initialShield;
     }
 
     public void attack() {
@@ -33,6 +35,16 @@ public class Characters {
         }
         else {
             System.out.println("Raté !");
+        }
+    }
+
+    public void retrieveShield(){
+        if (this.shield >= this.initialShield){
+            this.shield = this.initialShield;
+            System.out.println("Bouclier max");
+        } else{
+            this.shield += 5;
+            System.out.println("Régénération du bouclier");
         }
     }
 
@@ -55,13 +67,13 @@ public class Characters {
         this.damage = damage;
     }
 
-    // Getter and Setter of defence
-    public int getDefence() {
-        return defence;
+    // Getter and Setter of shield
+    public int getShield() {
+        return shield;
     }
 
-    public void setDefence(int defence) {
-        this.defence = defence;
+    public void setShield(int shield) {
+        this.shield = shield;
     }
 
     // Getter and Setter of weight
@@ -71,5 +83,13 @@ public class Characters {
 
     public void setWeight(int weight) {
         this.weight = weight;
+    }
+
+    // Getter and Setter of initialShield
+    public int getInitialShield() {
+        return initialShield;
+    }
+    public void setInitialShield(int initialShield) {
+        this.initialShield = initialShield;
     }
 }
