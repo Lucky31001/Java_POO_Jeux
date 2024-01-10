@@ -3,28 +3,30 @@ package Models.Characters;
 public class Enemies extends Characters {
 
     private String type;
-    private int escape;
 
-    public Enemies(int hp, int damage, int defence, int weight, String type) {
-        super(hp, damage, defence, weight);
+    public Enemies(int hp, int damage, int shield, int weight, int initialShield, String type) {
+        super(hp, damage, shield, weight, initialShield);
         this.type = type;
         //Cargo
         if (this.type == "1"){
             setHp(100);
             setDamage(30);
-            setDefence(75);
+            setShield(75);
+            setInitialShield(75);
             setWeight(80);
         //Chasseur
         } else if (this.type == "2") {
             setHp(50);
             setDamage(10);
-            setDefence(25);
+            setShield(25);
+            setInitialShield(25);
             setWeight(20);
         //Patrouilleur
         } else if (this.type == "3") {
             setHp(75);
             setDamage(20);
-            setDefence(50);
+            setShield(50);
+            setInitialShield(50);
             setWeight(50);
         }
         else {
