@@ -1,8 +1,6 @@
 import Models.Characters.Characters;
-import Models.Characters.Enemies;
 import Models.Characters.Player;
 import Models.Objects.Consumable;
-import Models.Objects.Objects;
 
 public class Main {
     public static void main(String[] args) {
