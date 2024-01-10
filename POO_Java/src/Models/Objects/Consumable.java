@@ -1,13 +1,15 @@
 package Models.Objects;
 
-public class Weapons extends Objects{
+public class Consumable extends Objects {
 
     private int damage;
+    private int defense;
     private int weight;
 
-    public Weapons(int weight, String name,int damage) {
+    public Consumable(String name, int weight, int damage, int defense) {
         super(name);
         this.damage = damage;
+        this.defense = defense;
         this.weight = weight;
     }
 
@@ -17,6 +19,14 @@ public class Weapons extends Objects{
 
     public void setDamage(int damage) {
         this.damage = damage;
+    }
+
+    public int getDefense() {
+        return defense;
+    }
+
+    public void setDefense(int defense) {
+        this.defense = defense;
     }
 
     public int getWeight() {
