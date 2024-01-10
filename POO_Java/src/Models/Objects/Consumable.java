@@ -39,12 +39,21 @@ public class Consumable extends Objects implements Interactuable {
     }
     @Override
     public void Interact(Characters Player) {
+        System.out.println(Player.getName() +" (old stat) "+
+                " : \n - HP : " + Player.getHp() +
+                "\n - Damage : " + Player.getDamage() +
+                "\n - Defence : " + Player.getShield() +
+                "\n - Weight : " + Player.getWeight());
+
         Player.setHp(Player.getHp() + this.heal);
         Player.setDamage(Player.getDamage() + this.damage);
         Player.setShield(Player.getShield() + this.defense);
         Player.setWeight(Player.getWeight() - this.getWeight());
-        System.out.println(Player.getName() + " : \n - HP : " + Player.getHp() +
-                "\n - Damage : " + Player.getDamage() + "\n - Defence : "
-                + Player.getShield() + "\n - Weight : " + Player.getWeight());
+
+        System.out.println("\n" + Player.getName() + " (new stat) " +
+                " : \n - HP : " + Player.getHp() +
+                "\n - Damage : " + Player.getDamage() +
+                "\n - Defence : " + Player.getShield() +
+                "\n - Weight : " + Player.getWeight());
     }
 }
