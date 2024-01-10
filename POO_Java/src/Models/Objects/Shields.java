@@ -1,5 +1,6 @@
 package Models.Objects;
 
+
 public class Shields extends Objects {
 
     private int defense;
@@ -26,4 +27,5 @@ public class Shields extends Objects {
     public void setWeight(int weight) {
         this.weight = weight;
     }
+
 }
