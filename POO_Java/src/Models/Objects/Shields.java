@@ -1,6 +1,6 @@
 package Models.Objects;
 
-public class Shields extends Objects{
+public class Shields extends Objects {
 
     private int defense;
     private int weight;
