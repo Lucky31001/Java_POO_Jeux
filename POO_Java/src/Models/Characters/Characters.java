@@ -27,7 +27,7 @@ public class Characters {
 
     public void takeDamage(int damage) {
         Random r = new Random();
-        int random = r.nextInt(101);
+        int random = r.nextInt(1001);
         //Toucher
         if (random <= this.weight){
             if (this.shield > 0) {
@@ -57,7 +57,7 @@ public class Characters {
             System.out.println("Raté !");
         }
         if (this.hp < 0) {
-            System.out.println(this.name + " est mort");
+            System.out.println(getName() + " est mort");
             this.hp = 0;
         }
     }
@@ -75,7 +75,7 @@ public class Characters {
             this.shield += this.initialShield / 4;
             System.out.println("Régénération du bouclier de " + this.initialShield / 4);
         }
-        System.out.println(this.getName() + ": \n" + this.getShield() + "/" + this.getInitialShield()
+        System.out.println(getName() + ": \n" + this.getShield() + "/" + this.getInitialShield()
                 + " Shield \n" + this.getHp() + "/" + this.getInitialHP() + " HP \n");
     }
 
@@ -86,27 +86,27 @@ public class Characters {
             if (this.hp <= this.initialShield /2){
                 n = r.nextInt(2);
                 if (n == 0){
-                    retrieveShield();
+                    this.retrieveShield();
                 } else {
-                    attack(Ennemis);
+                    this.attack(Ennemis);
                 }
             } else {
                 n = r.nextInt(4);
                 if (n == 0) {
-                    retrieveShield();
+                    this.retrieveShield();
                 } else {
-                    attack(Ennemis);
+                    this.attack(Ennemis);
                 }
             }
         } else if (this.shield <= this.initialShield / 2) {
             n = r.nextInt(5);
             if (n == 0){
-                retrieveShield();
+                this.retrieveShield();
             } else {
-                attack(Ennemis);
+                this.attack(Ennemis);
             }
         }else {
-            attack(Ennemis);
+            this.attack(Ennemis);
         }
     }
     public void addCoins(Characters enemy){

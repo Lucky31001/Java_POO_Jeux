@@ -15,7 +15,7 @@ public class Player extends Characters{
     @Override
     public void takeDamage(int damage) {
         super.takeDamage(damage);
-        System.out.println("Player : \n" + this.getShield() + "/" + this.getInitialShield()
+        System.out.println(this.getName()+" : \n" + this.getShield() + "/" + this.getInitialShield()
                 + " Shield\n" + this.getHp() + "/" + this.getInitialHP() + " HP\n");
     }
 
