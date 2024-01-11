@@ -50,11 +50,12 @@ public class Consumable extends Objects implements Interactuable {
         Player.setShield(Player.getShield() + this.defense);
         Player.setWeight(Player.getWeight() - this.getWeight());
 
-        System.out.println("\n" + Player.getName() + " (new stat) " +
+        System.out.println(                "\n\n |||||||||||||||||||||||||||||||||| \n"+
+                "\n" + Player.getName() + " (new stat) " +
                 " : \n - HP : " + Player.getHp() +
                 "\n - Damage : " + Player.getDamage() +
                 "\n - Defence : " + Player.getShield() +
                 "\n - Weight : " + Player.getWeight() +
-                "\n\n |||||||||||||||||||||||||||||||||||| \n");
+                "\n\n |||||||||||||||||||||||||||||||||| \n");
     }
 }

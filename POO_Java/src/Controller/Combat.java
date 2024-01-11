@@ -1,25 +1,20 @@
 package Controller;
-import Controller.Generate;
 import Models.Characters.Characters;
-import Models.Characters.Enemis.Cargo;
-import Models.Characters.Enemis.Chasseur;
-import Models.Characters.Enemis.Patrouilleur;
-import Models.Characters.Player;
-import Models.Objects.Consumable;
+import View.cli;
 
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.Scanner;
-import java.util.concurrent.ExecutionException;
 
 public class Combat extends Generate {
 
 
-    public static void fight(String name, ArrayList<Characters> Enemies) {
+    public static boolean fight(Characters player, ArrayList<Characters> Enemies,int n){
+        int fight = 0;
         int tour = 0;
+        boolean victoire = false;
         Characters actualEnemis = Enemies.getFirst();
-        Characters player = Generate.generatePlayer(name);
-
+        System.out.flush();
+        System.out.println("    "+player.getName()+" VS "+actualEnemis.getName()+"\r\n\n");
 
         if (actualEnemis.getWeight() >= player.getWeight()) {
             tour = 1;
@@ -27,7 +22,7 @@ public class Combat extends Generate {
         while ((player.getHp() > 0) && (actualEnemis.getHp() > 0)) {
 
             if (tour == 1) {
-                System.out.println("Tour du player \r\n");
+                System.out.println("Tour du joueur... \r\n");
                 System.out.flush();
                 Scanner scanner = new Scanner(System.in);
                 System.out.println("Choisissez votre action : \r\n1 - Attack \r\n2 - Retrieve Shield\r\n");
@@ -36,11 +31,9 @@ public class Combat extends Generate {
 
                 switch (response){
                     case 1 :
-                        System.out.println("attaque");
                         player.attack(actualEnemis);
                         break;
                     case 2 :
-                        System.out.println("Je recharge");
                         player.retrieveShield();
                         break;
                     default:
@@ -48,21 +41,89 @@ public class Combat extends Generate {
                 }
                 tour = 0;
             }else{
-                System.out.println("Tour du ainemy \r\n");
+                System.out.println("Tour de l'ennemi... \r\n");
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
                 System.out.println();
                 actualEnemis.choice(player);
                 tour = 1;
             }
-            System.out.println(actualEnemis.getHp());
-            System.out.println(player.getHp());
+
         }
         if (player.getHp() <=0){
-            boolean victoire = false;
-            System.out.println("Perdu");
+            System.out.flush();
+            cli.restartLoose();
         }else {
-            boolean victoire = true;
-            System.out.println("Gagné");
+            victoire = true;
+            Enemies.removeFirst();
+            System.out.flush();
+            System.out.println("SUCCESS !\n");
+            Characters.addCoins(actualEnemis,player);
+            try {
+                Thread.sleep(2500);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            if (Enemies.isEmpty()){
+                cli.restartWin();
+            }else {
+                whatNext(player,Enemies,n);
+            }
         }
-        Enemies.removeFirst();
+        return victoire;
+    }
+
+
+    public static void whatNext(Characters player, ArrayList<Characters> Enemies,int n){
+
+        if (n/3 == 1){
+            System.out.flush();
+            System.out.println("\nChoisissez votre action : \n\n1 - Continuer          2 - Station Spatiale\n");
+            System.out.println(
+                    "\n |||||||||||||||||||| \n"+
+                    "\n  " + player.getName() +
+                    " : \n - HP : " + player.getHp() +
+                    "\n - Damage : " + player.getDamage() +
+                    "\n - Defence : " + player.getShield() +
+                    "\n - Weight : " + player.getWeight() +
+                    "\n\n |||||||||||||||||||| \n");
+
+            Scanner scanner = new Scanner(System.in);
+            int response = scanner.nextInt();
+            n = -1;
+            switch (response) {
+                case 1:
+                    fight(player, Enemies, n + 1);
+                    break;
+                case 2:
+                    cli.garage(player,Enemies,n);
+                    break;
+            }
+        }else {
+            System.out.flush();
+            System.out.println("\nChoisissez votre action : \n\n1 - Continuer          2 - Station Spatiale\n");
+            System.out.println(
+                    "\n |||||||||||||||||||| \n"+
+                    "\n  " + player.getName() +
+                    " : \n - HP : " + player.getHp() +
+                    "\n - Damage : " + player.getDamage() +
+                    "\n - Defence : " + player.getShield() +
+                    "\n - Weight : " + player.getWeight() +
+                    "\n\n |||||||||||||||||||| \n");
+
+            Scanner scanner = new Scanner(System.in);
+            int response = scanner.nextInt();
+            switch (response) {
+                case 1:
+                    fight(player, Enemies, n + 1);
+                    break;
+                case 2:
+                    cli.station(player,Enemies,n);
+                    break;
+            }
+        }
     }
 }

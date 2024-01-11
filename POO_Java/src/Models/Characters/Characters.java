@@ -43,9 +43,13 @@ public class Characters {
             }
             System.out.println("Touché !");
         //Errafler
-        } else if (random <= this.weight + 10) {
+        } else if (random <= this.weight + 100) {
             if (this.shield > 0) {
                 this.shield = this.shield - (damage / 2);
+                if (this.shield < 0){
+                    this.hp = this.hp + (this.shield / 2);
+                    this.shield = 0;
+                }
             }
             else {
                 this.shield = 0;
@@ -109,12 +113,12 @@ public class Characters {
             this.attack(Ennemis);
         }
     }
-    public void addCoins(Characters enemy){
-        this.setCoins(this.getCoins() + enemy.getCoins());
+    public static void addCoins(Characters enemy,Characters player){
+        player.setCoins(player.getCoins() + enemy.getCoins());
         if (enemy.getCoins() == 1){
-            System.out.println(enemy.getCoins() + " StarDust a été ajouté à votre reserve, suite à la mort de : " + enemy.getName());
+            System.out.println(enemy.getCoins() + " StarDust a été ajouté à votre reserve, suite à la mort de : " + enemy.getName() + "\n");
         } else {
-            System.out.println(enemy.getCoins() + " StarDust ont été ajoutés à votre reserve, suite à la mort de : " + enemy.getName());
+            System.out.println(enemy.getCoins() + " StarDust ont été ajoutés à votre reserve, suite à la mort de : " + enemy.getName() + "\n");
         }
 
     }

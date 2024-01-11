@@ -1,4 +1,5 @@
 package View;
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.concurrent.ExecutionException;
@@ -11,7 +12,62 @@ public class cli {
     public static void startMenu() {
         System.out.flush();
         Scanner scanner = new Scanner(System.in);
-        System.out.println("1 - Jouer \r\n2 - Quitter");
+        System.out.println("\n    WELCOME TO STAR DESTROYER\r\n\n");
+        System.out.println("1 - Jouer            2 - Quitter\r\n");
+        try {
+            int response = scanner.nextInt();
+            switch (response) {
+                case 1:
+                    setDifficulty();
+                    break;
+                case 2:
+                    System.out.println("Quitter");
+                    break;
+                default:
+                    System.out.println("Invalide");
+                    startMenu();
+                    break;
+
+            }
+        }
+        catch(InputMismatchException e) {
+            System.out.println("Invalide : " + e);
+            startMenu();
+        }
+    }
+
+    public static void restartLoose() {
+        System.out.flush();
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("            GAME OVER !\r\n\n");
+        System.out.println("1 - Rejouer            2 - Quitter\r\n");
+        try {
+            int response = scanner.nextInt();
+            switch (response) {
+                case 1:
+                    setDifficulty();
+                    break;
+                case 2:
+                    System.out.println("Quitter");
+                    break;
+                default:
+                    System.out.println("Invalide");
+                    startMenu();
+                    break;
+
+            }
+        }
+        catch(InputMismatchException e) {
+            System.out.println("Invalide : " + e);
+            startMenu();
+        }
+    }
+
+    public static void restartWin() {
+        System.out.flush();
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("            YOU WON !\r\n\n");
+        System.out.println("1 - Rejouer            2 - Quitter\r\n");
         try {
             int response = scanner.nextInt();
             switch (response) {
@@ -47,17 +103,17 @@ public class cli {
                 case 1:
                     System.out.println("Rentrer votre pseudo : \r\n");
                     name = scanner1.next();
-                    Combat.fight(name,Generate.easy());
+                    boolean victoire = Combat.fight(Generate.generatePlayer(name),Generate.easy(),0);
                     break;
                 case 2:
                     System.out.println("Rentrer votre pseudo : \r\n");
                     name = scanner1.next();
-                    Combat.fight(name,Generate.normal());
+                    victoire = Combat.fight(Generate.generatePlayer(name),Generate.normal(),0);
                     break;
                 case 3:
                     System.out.println("Rentrer votre pseudo : \r\n");
                     name = scanner1.next();
-                    Combat.fight(name,Generate.hard());
+                    victoire = Combat.fight(Generate.generatePlayer(name), Generate.hard(),0);
                     break;
                 case 4:
                     startMenu();
@@ -70,7 +126,7 @@ public class cli {
         }
     }
 
-    public static void station(Characters Player){
+    public static void station(Characters Player,ArrayList<Characters> Enemies,int n){
         System.out.flush();
         System.out.println("Bienvenue dans la Station :\r\n");
         System.out.println("Solde :"+ Player.getCoins() + " SD \r\n");
@@ -83,20 +139,26 @@ public class cli {
                     if (Player.getCoins() >= 300){
                         Player.setHp(Player.getHp() + 100);
                         Player.setCoins(Player.getCoins() - 300);
+                        System.out.println("Achat bien effectué");
+                        Combat.whatNext(Player,Enemies,n);
                     }else {
                         System.out.println("Vous n'avez pas assez de StarDust");
+                        Combat.whatNext(Player,Enemies,n);
                     }
                     break;
                 case 2:
                     if (Player.getCoins() >= 500){
                         Player.setHp(Player.getHp() + 300);
                         Player.setCoins(Player.getCoins() - 500);
+                        System.out.println("Achat bien effectué");
+                        Combat.whatNext(Player,Enemies,n);
                     }else {
                         System.out.println("Vous n'avez pas assez de StarDust");
+                        Combat.whatNext(Player,Enemies,n);
                     }
                     break;
                 case 3:
-                    startMenu();
+                    Combat.whatNext(Player,Enemies,n);
                     break;
             }
         }catch(InputMismatchException e) {
@@ -105,7 +167,7 @@ public class cli {
         }
     }
 
-    public static void garage(Characters Player){
+    public static void garage(Characters Player, ArrayList<Characters> Enemies, int n){
         System.out.flush();
         System.out.println("Bienvenue au garage :\r\n");
         System.out.println("Solde : "+ Player.getCoins() + " SD \r\n");
@@ -128,9 +190,11 @@ public class cli {
                                 Player.setInitialHP(Player.getInitialHP() + ((Player.getInitialHP() * 5) / 100));
                                 Player.setCoins(Player.getCoins() - 300);
                                 System.out.println("Achat bien effectué");
+                                Combat.whatNext(Player,Enemies,n);
 
                             } else {
                                 System.out.println("Vous n'avez pas assez de StarDust");
+                                Combat.whatNext(Player,Enemies,n);
                             }
                             break;
                         case 2:
@@ -138,12 +202,14 @@ public class cli {
                                 Player.setInitialHP(Player.getInitialHP() + ((Player.getInitialHP() * 15) / 100));
                                 Player.setCoins(Player.getCoins() - 750);
                                 System.out.println("Achat bien effectué");
+                                Combat.whatNext(Player,Enemies,n);
                             } else {
                                 System.out.println("Vous n'avez pas assez de StarDust");
+                                Combat.whatNext(Player,Enemies,n);
                             }
                             break;
                         case 3:
-                            garage(Player);
+                            garage(Player,Enemies,n);
                             break;
                     }
                     break;
@@ -160,8 +226,10 @@ public class cli {
                                 Player.setInitialShield(Player.getInitialShield() + ((Player.getInitialShield() * 5) / 100));
                                 Player.setCoins(Player.getCoins() - 300);
                                 System.out.println("Achat bien effectué");
+                                Combat.whatNext(Player,Enemies,n);
                             } else {
                                 System.out.println("Vous n'avez pas assez de StarDust");
+                                Combat.whatNext(Player,Enemies,n);
                             }
                             break;
                         case 2:
@@ -169,12 +237,14 @@ public class cli {
                                 Player.setInitialShield(Player.getInitialShield() + ((Player.getInitialShield() * 15) / 100));
                                 Player.setCoins(Player.getCoins() - 750);
                                 System.out.println("Achat bien effectué");
+                                Combat.whatNext(Player,Enemies,n);
                             } else {
                                 System.out.println("Vous n'avez pas assez de StarDust");
+                                Combat.whatNext(Player,Enemies,n);
                             }
                             break;
                         case 3:
-                            garage(Player);
+                            garage(Player,Enemies,n);
                             break;
                     }
                     break;
@@ -192,8 +262,10 @@ public class cli {
                                 Player.setCoins(Player.getCoins() - 500);
                                 Player.setWeight(Player.getWeight() + 75);
                                 System.out.println("Achat bien effectué");
+                                Combat.whatNext(Player,Enemies,n);
                             } else {
                                 System.out.println("Vous n'avez pas assez de StarDust");
+                                Combat.whatNext(Player,Enemies,n);
                             }
                             break;
                         case 2:
@@ -202,8 +274,10 @@ public class cli {
                                 Player.setCoins(Player.getCoins() - 800);
                                 Player.setWeight(Player.getWeight() + 188);
                                 System.out.println("Achat bien effectué");
+                                Combat.whatNext(Player,Enemies,n);
                             } else {
                                 System.out.println("Vous n'avez pas assez de StarDust");
+                                Combat.whatNext(Player,Enemies,n);
                             }
                             break;
                         case 3:
@@ -212,12 +286,14 @@ public class cli {
                                 Player.setCoins(Player.getCoins() - 1300);
                                 Player.setWeight(Player.getWeight() + 250);
                                 System.out.println("Achat bien effectué");
+                                Combat.whatNext(Player,Enemies,n);
                             } else {
                                 System.out.println("Vous n'avez pas assez de StarDust");
+                                Combat.whatNext(Player,Enemies,n);
                             }
                             break;
                         case 4:
-                            garage(Player);
+                            garage(Player,Enemies,n);
                             break;
                     }
                     break;
@@ -234,8 +310,10 @@ public class cli {
                                 Player.setDamage(Player.getDamage() + ((Player.getDamage() * 5) / 100));
                                 Player.setCoins(Player.getCoins() - 300);
                                 System.out.println("Achat bien effectué");
+                                Combat.whatNext(Player,Enemies,n);
                             } else {
                                 System.out.println("Vous n'avez pas assez de StarDust");
+                                Combat.whatNext(Player,Enemies,n);
                             }
                             break;
                         case 2:
@@ -243,12 +321,15 @@ public class cli {
                                 Player.setDamage(Player.getDamage() + ((Player.getDamage() * 15) / 100));
                                 Player.setCoins(Player.getCoins() - 750);
                                 System.out.println("Achat bien effectué");
+                                Combat.whatNext(Player,Enemies,n);
+
                             } else {
                                 System.out.println("Vous n'avez pas assez de StarDust");
+                                Combat.whatNext(Player,Enemies,n);
                             }
                             break;
                         case 3:
-                            garage(Player);
+                            garage(Player, Enemies, n);
                             break;
                     }
                     break;
@@ -266,8 +347,10 @@ public class cli {
                                 Player.setInitialShield(Player.getInitialShield() + ((Player.getInitialShield() * 200) / 100));
                                 Player.setCoins(Player.getCoins() - 2000);
                                 System.out.println("Achat bien effectué");
+                                Combat.whatNext(Player,Enemies,n);
                             } else {
                                 System.out.println("Vous n'avez pas assez de StarDust");
+                                Combat.whatNext(Player,Enemies,n);
                             }
                             break;
                         case 2:
@@ -276,16 +359,19 @@ public class cli {
                                 Player.setWeight(Player.getWeight() + 1000);
                                 Player.setCoins(Player.getCoins() - 3000);
                                 System.out.println("Achat bien effectué");
+                                Combat.whatNext(Player,Enemies,n);
                             } else {
                                 System.out.println("Vous n'avez pas assez de StarDust");
+                                Combat.whatNext(Player,Enemies,n);
                             }
                             break;
                         case 3:
-                            garage(Player);
+                            garage(Player, Enemies, n);
                             break;
                     }
                     break;
                 case 6:
+                    Combat.whatNext(Player, Enemies,n);
                     break;
                     }
 
