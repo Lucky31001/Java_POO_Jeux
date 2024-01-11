@@ -3,8 +3,8 @@ package Models.Characters;
 public class Player extends Characters{
 
 
-    public Player(int hp, int damage, int shield, int weight, String name) {
-        super(hp, damage, shield, weight, name);
+    public Player(int hp, int damage, int shield, int weight, String name, int coins) {
+        super(hp, damage, shield, weight, name, coins);
     }
     @Override
     public void attack(Characters enemy) {
@@ -18,4 +18,6 @@ public class Player extends Characters{
         System.out.println("Player : \n" + this.getShield() + "/" + this.getInitialShield()
                 + " Shield\n" + this.getHp() + "/" + this.getInitialHP() + " HP\n");
     }
+
+
 }

@@ -7,17 +7,15 @@ import Models.Objects.Consumable;
 public class Main {
     public static void main(String[] args) {
 
-        Characters Perso = new Player(1000, 300, 500, 500, "Player");
-        Characters Cargo = new Cargo(1000, 400, 750, 800, "Mechant");
+        Characters Perso = new Player(1000, 300, 500, 500, "Player", 0);
+        Characters Cargo = new Cargo(1000, 400, 750, 800, "Mechant", 30);
         Consumable Potion = new Consumable("Potion", 0, 0, 0, 50);
 
+        System.out.println(Perso.getCoins());
         Perso.attack(Cargo);
-        Perso.attack(Cargo);
-        Perso.attack(Cargo);
-        Perso.attack(Cargo);
-        Perso.attack(Cargo);
-        Cargo.choice(Perso);
-        Cargo.choice(Perso);
+        Perso.addCoins(Cargo);
+        System.out.println(Perso.getCoins());
+
 
     }
 }
