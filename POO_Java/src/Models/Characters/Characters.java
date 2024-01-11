@@ -10,14 +10,16 @@ public class Characters {
     private int weight;
     private String name;
     private int initialShield;
+    private int initialHP;
 
-    public Characters(int hp, int damage, int shield, int weight, String name, int initialShield) {
+    public Characters(int hp, int damage, int shield, int weight, String name) {
         this.hp = hp;
         this.damage = damage;
         this.shield = shield;
         this.name = name;
         this.weight = weight;
-        this.initialShield = initialShield;
+        this.initialShield = shield;
+        this.initialHP = hp;
     }
 
 
@@ -56,7 +58,6 @@ public class Characters {
             System.out.println(this.name + " est mort");
             this.hp = 0;
         }
-        System.out.println("shield :" + this.shield + " vie : " + this.hp);
     }
 
     public void attack(Characters Ennemis) {
@@ -71,6 +72,14 @@ public class Characters {
             this.shield += 5;
             System.out.println("Régénération du bouclier");
         }
+    }
+
+    public int getInitialHP() {
+        return initialHP;
+    }
+
+    public void setInitialHP(int initialHP) {
+        this.initialHP = initialHP;
     }
 
     public String getName() {

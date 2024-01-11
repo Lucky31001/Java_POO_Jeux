@@ -1,12 +1,13 @@
 import Models.Characters.Characters;
+import Models.Characters.Enemis.Cargo;
 import Models.Characters.Player;
 import Models.Objects.Consumable;
 
 public class Main {
     public static void main(String[] args) {
-        Characters Perso = new Player(100, 30, 50, 50, "McAdam", 50);
-        Consumable Potion = new Consumable("Potion", 0, 0, 0, 50);
+        Characters Perso = new Player(100, 200, 50, 50, "McAdam");
+        Characters Ennemis = new Cargo(100,30,75,80, "Destructor");
 
-        Potion.Interact(Perso);
+        Perso.attack(Ennemis);
     }
 }

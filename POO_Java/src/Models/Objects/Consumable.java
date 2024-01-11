@@ -54,6 +54,7 @@ public class Consumable extends Objects implements Interactuable {
                 " : \n - HP : " + Player.getHp() +
                 "\n - Damage : " + Player.getDamage() +
                 "\n - Defence : " + Player.getShield() +
-                "\n - Weight : " + Player.getWeight());
+                "\n - Weight : " + Player.getWeight() +
+                "\n\n |||||||||||||||||||||||||||||||||||| \n");
     }
 }
