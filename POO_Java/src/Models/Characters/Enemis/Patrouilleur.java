@@ -3,19 +3,20 @@ package Models.Characters.Enemis;
 import Models.Characters.Characters;
 
 public class Patrouilleur extends Characters {
-    public Patrouilleur(int hp, int damage, int shield, int weight, String name, int initialShield) {
-        super(hp, damage, shield, weight, name, initialShield);
-        setHp(75);
-        setDamage(20);
-        setShield(50);
-        setInitialShield(50);
-        setWeight(50);
-        setName("Patrouilleur");
+    public Patrouilleur(int hp, int damage, int shield, int weight, String name) {
+        super(hp, damage, shield, weight, name);
     }
+
+    @Override
+    public void takeDamage(int damage) {
+        super.takeDamage(damage);
+        System.out.println("Cargo : \n" + this.getShield() + "/" + this.getInitialShield()
+                + " Shield\n" + this.getHp() + "/" + this.getInitialHP() + " HP");
+    }
+
     @Override
     public void attack(Characters enemy) {
         System.out.println("La " + getName() + " tire sur " + enemy.getName() + " avec des degat de " + getDamage() + " et à");
         enemy.takeDamage(getDamage());
     }
-
 }

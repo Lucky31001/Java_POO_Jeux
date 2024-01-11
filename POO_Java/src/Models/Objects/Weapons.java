@@ -29,6 +29,7 @@ public class Weapons extends Objects implements  Interactuable{
 
         System.out.println("\n" + Player.getName() + " (new stat) " +
                 "\n - Damage : " + Player.getDamage() +
-                "\n - Weight : " + Player.getWeight());
+                "\n - Weight : " + Player.getWeight() +
+                "\n\n |||||||||||||||||||||||||||||||||||| \n");
     }
 }
