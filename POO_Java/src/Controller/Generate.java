@@ -6,7 +6,11 @@ import Models.Characters.Enemis.Chasseur;
 import Models.Characters.Player;
 
 import java.util.ArrayList;
+
+import static View.cli.garage;
+
 public class Generate {
+
 
 
     public static ArrayList<Characters> easy() {
@@ -18,11 +22,10 @@ public class Generate {
 
         Enemies.add(patrouilleur);
         Enemies.add(cargo);
-        Enemies.add(chasseur);
-
         return Enemies;
 
     }
+
 
     public static ArrayList<Characters> normal() {
         ArrayList<Characters> Enemies = new ArrayList<>();
@@ -34,6 +37,7 @@ public class Generate {
         Enemies.add(patrouilleur);
         Enemies.add(cargo);
         Enemies.add(chasseur);
+
 
         return Enemies;
     }
@@ -56,6 +60,16 @@ public class Generate {
         Characters player = new Player(1000, 350, 500, 550, name, 0);
         return player;
     }
+
+    public static void afficherStats(Characters Player){
+        System.out.println("Name   : " + Player.getName());
+        System.out.println("HP     : " + Player.getHp());
+        System.out.println("Shield : " + Player.getShield());
+        System.out.println("Damage : " + Player.getDamage());
+        System.out.println("Weight : " + Player.getWeight());
+    }
+
+
 }
 
 
