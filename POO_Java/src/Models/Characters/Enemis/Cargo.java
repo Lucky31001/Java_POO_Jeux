@@ -10,5 +10,11 @@ public class Cargo extends Characters {
         setShield(75);
         setInitialShield(75);
         setWeight(80);
+        setName("Cargo");
+    }
+    @Override
+    public void attack(Characters enemy) {
+        System.out.println("Le " + getName() + " tire sur " + enemy.getName() + " avec des degat de " + getDamage() + " et à");
+        enemy.takeDamage(getDamage());
     }
 }

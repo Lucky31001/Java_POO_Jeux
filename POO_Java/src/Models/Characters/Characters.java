@@ -61,6 +61,7 @@ public class Characters {
 
     public void attack(Characters Ennemis) {
         Ennemis.takeDamage(this.damage);
+
     }
 
     public void retrieveShield(){

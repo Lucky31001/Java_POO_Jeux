@@ -10,5 +10,12 @@ public class Patrouilleur extends Characters {
         setShield(50);
         setInitialShield(50);
         setWeight(50);
+        setName("Patrouilleur");
     }
+    @Override
+    public void attack(Characters enemy) {
+        System.out.println("La " + getName() + " tire sur " + enemy.getName() + " avec des degat de " + getDamage() + " et à");
+        enemy.takeDamage(getDamage());
+    }
+
 }

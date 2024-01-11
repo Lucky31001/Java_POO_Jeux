@@ -10,5 +10,11 @@ public class Chasseur extends Characters {
         setShield(25);
         setInitialShield(25);
         setWeight(20);
+        setName("Chasseur");
+    }
+    @Override
+    public void attack(Characters enemy) {
+        System.out.println("Le " + getName() + " tire sur " + enemy.getName() + " avec des degat de " + getDamage() + " et à");
+        enemy.takeDamage(getDamage());
     }
 }
