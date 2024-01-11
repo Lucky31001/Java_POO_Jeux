@@ -3,8 +3,8 @@ package Models.Characters.Enemis;
 import Models.Characters.Characters;
 
 public class Chasseur extends Characters {
-    public Chasseur(int hp, int damage, int shield, int weight, String name) {
-        super(hp, damage, shield, weight, name);
+    public Chasseur(int hp, int damage, int shield, int weight, String name, int coins) {
+        super(hp, damage, shield, weight, name, coins);
     }
     @Override
     public void attack(Characters enemy) {

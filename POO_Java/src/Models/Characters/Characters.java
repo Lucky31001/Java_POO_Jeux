@@ -11,8 +11,9 @@ public class Characters {
     private String name;
     private int initialShield;
     private int initialHP;
+    private int coins;
 
-    public Characters(int hp, int damage, int shield, int weight, String name) {
+    public Characters(int hp, int damage, int shield, int weight, String name, int coins) {
         this.hp = hp;
         this.damage = damage;
         this.shield = shield;
@@ -20,6 +21,7 @@ public class Characters {
         this.weight = weight;
         this.initialShield = shield;
         this.initialHP = hp;
+        this.coins = coins;
     }
 
 
@@ -107,6 +109,15 @@ public class Characters {
             attack(Ennemis);
         }
     }
+    public void addCoins(Characters enemy){
+        this.setCoins(this.getCoins() + enemy.getCoins());
+        if (enemy.getCoins() == 1){
+            System.out.println(enemy.getCoins() + " StarDust a été ajouté à votre reserve, suite à la mort de : " + enemy.getName());
+        } else {
+            System.out.println(enemy.getCoins() + " StarDust ont été ajoutés à votre reserve, suite à la mort de : " + enemy.getName());
+        }
+
+    }
     public int getInitialHP() {
         return initialHP;
     }
@@ -165,5 +176,13 @@ public class Characters {
     }
     public void setInitialShield(int initialShield) {
         this.initialShield = initialShield;
+    }
+
+    public int getCoins() {
+        return coins;
+    }
+
+    public void setCoins(int coins) {
+        this.coins = coins;
     }
 }

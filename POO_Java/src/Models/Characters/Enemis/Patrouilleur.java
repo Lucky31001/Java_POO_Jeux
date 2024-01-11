@@ -3,8 +3,8 @@ package Models.Characters.Enemis;
 import Models.Characters.Characters;
 
 public class Patrouilleur extends Characters {
-    public Patrouilleur(int hp, int damage, int shield, int weight, String name) {
-        super(hp, damage, shield, weight, name);
+    public Patrouilleur(int hp, int damage, int shield, int weight, String name, int coins) {
+        super(hp, damage, shield, weight, name, coins);
     }
 
     @Override
