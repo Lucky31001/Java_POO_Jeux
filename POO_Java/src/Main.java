@@ -6,9 +6,8 @@ import Models.Objects.Consumable;
 
 public class Main {
     public static void main(String[] args) {
-        Characters player = new Player(1000,350,500,550, "hehe", 500);
 
-        View.cli.garage(player);
+        View.cli.startMenu();
         //Characters Perso = new Player(100, 200, 50, 50, "McAdam");
         //Characters Ennemis = new Cargo(100,30,75,80, "Destructor");
 
