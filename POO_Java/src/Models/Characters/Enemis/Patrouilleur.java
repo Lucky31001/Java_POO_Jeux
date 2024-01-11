@@ -10,7 +10,13 @@ public class Patrouilleur extends Characters {
     @Override
     public void takeDamage(int damage) {
         super.takeDamage(damage);
-        System.out.println("Cargo : \n" + this.getShield() + "/" + this.getInitialShield()
-                + "\n" + this.getHp() + "/" + this.getInitialHP());
+        System.out.println(this.getName() + ": \n" + this.getShield() + "/" + this.getInitialShield()
+                + " Shield \n" + this.getHp() + "/" + this.getInitialHP() + " HP \n");
+    }
+
+    @Override
+    public void attack(Characters enemy) {
+        System.out.println("La " + getName() + " tire sur " + enemy.getName() + " avec des degat de " + getDamage() + " et à");
+        enemy.takeDamage(getDamage());
     }
 }

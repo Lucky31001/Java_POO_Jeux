@@ -62,6 +62,7 @@ public class Characters {
 
     public void attack(Characters Ennemis) {
         Ennemis.takeDamage(this.damage);
+
     }
 
     public void retrieveShield(){
@@ -69,11 +70,43 @@ public class Characters {
             this.shield = this.initialShield;
             System.out.println("Bouclier max");
         } else{
-            this.shield += 5;
-            System.out.println("Régénération du bouclier");
+            this.shield += this.initialShield / 4;
+            System.out.println("Régénération du bouclier de " + this.initialShield / 4);
         }
+        System.out.println(this.getName() + ": \n" + this.getShield() + "/" + this.getInitialShield()
+                + " Shield \n" + this.getHp() + "/" + this.getInitialHP() + " HP \n");
     }
 
+    public void choice(Characters Ennemis){
+        Random r = new Random();
+        int n;
+        if (this.shield == 0){
+            if (this.hp <= this.initialShield /2){
+                n = r.nextInt(2);
+                if (n == 0){
+                    retrieveShield();
+                } else {
+                    attack(Ennemis);
+                }
+            } else {
+                n = r.nextInt(4);
+                if (n == 0) {
+                    retrieveShield();
+                } else {
+                    attack(Ennemis);
+                }
+            }
+        } else if (this.shield <= this.initialShield / 2) {
+            n = r.nextInt(5);
+            if (n == 0){
+                retrieveShield();
+            } else {
+                attack(Ennemis);
+            }
+        }else {
+            attack(Ennemis);
+        }
+    }
     public int getInitialHP() {
         return initialHP;
     }
