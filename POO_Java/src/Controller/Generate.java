@@ -4,6 +4,7 @@ import Models.Characters.Enemis.Cargo;
 import Models.Characters.Enemis.Patrouilleur;
 import Models.Characters.Enemis.Chasseur;
 import Models.Characters.Player;
+import View.cli;
 
 import java.util.ArrayList;
 
@@ -57,7 +58,16 @@ public class Generate {
     }
 
     public static Characters generatePlayer(String name) {
-        Characters player = new Player(1000, 350, 500, 550, name, 0);
+        int hp = 1000;
+        int damage = 350;
+        int shield = 500;
+        int weight = 550;
+        String nom = name;
+        int coins = 0;
+
+        Characters player = new Player(hp, damage, shield, weight, nom, coins);
+        cli.sauvegardePlayer(hp, damage, shield, weight, nom, coins);
+        System.out.println("Création du joueur");
         return player;
     }
 

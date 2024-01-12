@@ -2,16 +2,18 @@ package Controller;
 import Models.Characters.Characters;
 import View.cli;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Combat extends Generate {
 
 
-    public static boolean fight(Characters player, ArrayList<Characters> Enemies,int n){
+    public static boolean fight(Characters player, ArrayList<Characters> Enemies,int n) throws IOException {
         int fight = 0;
         int tour = 0;
         boolean victoire = false;
+        cli.sauvegardePlayer(player.getHp(), player.getDamage(), player.getShield(), player.getWeight(), player.getName(), player.getCoins());
         Characters actualEnemis = Enemies.getFirst();
         System.out.flush();
         System.out.println("    "+player.getName()+" VS "+actualEnemis.getName()+"\r\n\n");
@@ -77,7 +79,7 @@ public class Combat extends Generate {
     }
 
 
-    public static void whatNext(Characters player, ArrayList<Characters> Enemies,int n){
+    public static void whatNext(Characters player, ArrayList<Characters> Enemies,int n) throws IOException {
 
         if (n/3 == 1){
             System.out.flush();
