@@ -139,6 +139,9 @@ public class cli {
                     if (Player.getCoins() >= 300){
                         Player.setHp(Player.getHp() + 100);
                         Player.setCoins(Player.getCoins() - 300);
+                        if (Player.getHp() > Player.getInitialHP()){
+                            Player.setHp(Player.getInitialHP());
+                        }
                         System.out.println("Achat bien effectué");
                         Combat.whatNext(Player,Enemies,n);
                     }else {
@@ -150,6 +153,9 @@ public class cli {
                     if (Player.getCoins() >= 500){
                         Player.setHp(Player.getHp() + 300);
                         Player.setCoins(Player.getCoins() - 500);
+                        if (Player.getHp() > Player.getInitialHP()){
+                            Player.setHp(Player.getInitialHP());
+                        }
                         System.out.println("Achat bien effectué");
                         Combat.whatNext(Player,Enemies,n);
                     }else {
@@ -169,7 +175,10 @@ public class cli {
 
     public static void garage(Characters Player, ArrayList<Characters> Enemies, int n){
         System.out.flush();
-        System.out.println("Bienvenue au garage :\r\n");
+        System.out.println("Bienvenue au garage :\r\n" +
+                "Vos HP et Shield ont été restaurés");
+        Player.setShield(Player.getInitialShield());
+        Player.setHp(Player.getInitialHP());
         System.out.println("Solde : "+ Player.getCoins() + " SD \r\n");
         System.out.println("1 - Heal \r\n2 - Shield \r\n3 - Weapons \r\n4 - Ammo \r\n5 - ??? \r\n6 - Retour");
         Scanner scanner = new Scanner(System.in);
@@ -188,6 +197,7 @@ public class cli {
                         case 1:
                             if (Player.getCoins() >= 300) {
                                 Player.setInitialHP(Player.getInitialHP() + ((Player.getInitialHP() * 5) / 100));
+                                Player.setHp(Player.getInitialHP());
                                 Player.setCoins(Player.getCoins() - 300);
                                 System.out.println("Achat bien effectué");
                                 Combat.whatNext(Player,Enemies,n);
@@ -200,6 +210,7 @@ public class cli {
                         case 2:
                             if (Player.getCoins() >= 750) {
                                 Player.setInitialHP(Player.getInitialHP() + ((Player.getInitialHP() * 15) / 100));
+                                Player.setHp(Player.getInitialHP());
                                 Player.setCoins(Player.getCoins() - 750);
                                 System.out.println("Achat bien effectué");
                                 Combat.whatNext(Player,Enemies,n);
@@ -224,6 +235,7 @@ public class cli {
                         case 1:
                             if (Player.getCoins() >= 300) {
                                 Player.setInitialShield(Player.getInitialShield() + ((Player.getInitialShield() * 5) / 100));
+                                Player.setShield(Player.getInitialShield());
                                 Player.setCoins(Player.getCoins() - 300);
                                 System.out.println("Achat bien effectué");
                                 Combat.whatNext(Player,Enemies,n);
@@ -235,6 +247,7 @@ public class cli {
                         case 2:
                             if (Player.getCoins() >= 750) {
                                 Player.setInitialShield(Player.getInitialShield() + ((Player.getInitialShield() * 15) / 100));
+                                Player.setShield(Player.getInitialShield());
                                 Player.setCoins(Player.getCoins() - 750);
                                 System.out.println("Achat bien effectué");
                                 Combat.whatNext(Player,Enemies,n);
@@ -345,6 +358,8 @@ public class cli {
                             if (Player.getCoins() >= 2500) {
                                 Player.setInitialHP(Player.getInitialHP() + ((Player.getInitialHP() * 200) / 100));
                                 Player.setInitialShield(Player.getInitialShield() + ((Player.getInitialShield() * 200) / 100));
+                                Player.setHp(Player.getInitialHP());
+                                Player.setShield(Player.getInitialShield());
                                 Player.setCoins(Player.getCoins() - 2000);
                                 System.out.println("Achat bien effectué");
                                 Combat.whatNext(Player,Enemies,n);

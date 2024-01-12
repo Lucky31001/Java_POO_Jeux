@@ -7,7 +7,6 @@ import View.cli;
 
 public class Main {
     public static void main(String[] args) {
-        
         cli.startMenu();
     }
 }

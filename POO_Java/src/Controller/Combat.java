@@ -70,7 +70,7 @@ public class Combat extends Generate {
             if (Enemies.isEmpty()){
                 cli.restartWin();
             }else {
-                whatNext(player,Enemies,n);
+                whatNext(player,Enemies,n+1);
             }
         }
         return victoire;
@@ -78,47 +78,48 @@ public class Combat extends Generate {
 
 
     public static void whatNext(Characters player, ArrayList<Characters> Enemies,int n){
-
-        if (n/3 == 1){
+        player.setShield(player.getInitialShield());
+        if (n == 3){
             System.out.flush();
-            System.out.println("\nChoisissez votre action : \n\n1 - Continuer          2 - Station Spatiale\n");
+            System.out.println("\nChoisissez votre action : \n\n1 - Continuer          2 - Garage\n");
             System.out.println(
-                    "\n |||||||||||||||||||| \n"+
+                    "\n ---------------------- \n"+
                     "\n  " + player.getName() +
-                    " : \n - HP : " + player.getHp() +
+                    " : \n - HP : " + player.getHp() + "/" + player.getInitialHP() +
                     "\n - Damage : " + player.getDamage() +
-                    "\n - Defence : " + player.getShield() +
+                    "\n - Shield : " + player.getShield() + "/" + player.getInitialShield() +
                     "\n - Weight : " + player.getWeight() +
-                    "\n\n |||||||||||||||||||| \n");
+                    "\n\n ---------------------- \n");
 
             Scanner scanner = new Scanner(System.in);
             int response = scanner.nextInt();
-            n = -1;
             switch (response) {
                 case 1:
-                    fight(player, Enemies, n + 1);
+                    n = 0;
+                    fight(player, Enemies, n);
                     break;
                 case 2:
                     cli.garage(player,Enemies,n);
                     break;
             }
+
         }else {
             System.out.flush();
             System.out.println("\nChoisissez votre action : \n\n1 - Continuer          2 - Station Spatiale\n");
             System.out.println(
-                    "\n |||||||||||||||||||| \n"+
+                    "\n ----------------------\n"+
                     "\n  " + player.getName() +
-                    " : \n - HP : " + player.getHp() +
+                    " : \n - HP : " + player.getHp() + "/" + player.getInitialHP() +
                     "\n - Damage : " + player.getDamage() +
-                    "\n - Defence : " + player.getShield() +
+                    "\n - Shield : " + player.getShield() + "/" + player.getInitialShield() +
                     "\n - Weight : " + player.getWeight() +
-                    "\n\n |||||||||||||||||||| \n");
+                    "\n\n ---------------------- \n");
 
             Scanner scanner = new Scanner(System.in);
             int response = scanner.nextInt();
             switch (response) {
                 case 1:
-                    fight(player, Enemies, n + 1);
+                    fight(player, Enemies, n);
                     break;
                 case 2:
                     cli.station(player,Enemies,n);
