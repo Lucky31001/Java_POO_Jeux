@@ -8,7 +8,15 @@ import java.util.Scanner;
 
 public class Combat extends Generate {
 
-
+    /**
+     * Conducts a fight between the player and enemies.
+     *
+     * @param player   The player character.
+     * @param Enemies  The list of enemy characters.
+     * @param n        The current combat round.
+     * @return True if the player wins the fight, false otherwise.
+     * @throws IOException if an I/O error occurs.
+     */
     public static boolean fight(Characters player, ArrayList<Characters> Enemies,int n) throws IOException {
         int fight = 0;
         int tour = 0;
@@ -155,7 +163,14 @@ public class Combat extends Generate {
         return victoire;
     }
 
-
+    /**
+     * Determines the next actions after a combat round.
+     *
+     * @param player  The player character.
+     * @param Enemies The list of enemy characters.
+     * @param n       The current combat round.
+     * @throws IOException if an I/O error occurs.
+     */
     public static void whatNext(Characters player, ArrayList<Characters> Enemies,int n) throws IOException {
         player.setShield(player.getInitialShield());
         if (n == 3){
@@ -220,6 +235,9 @@ public class Combat extends Generate {
                     break;
                 case 2:
                     cli.station(player,Enemies,n);
+                    break;
+                case 3:
+                    cli.garage(player,Enemies,n);
                     break;
             }
         }

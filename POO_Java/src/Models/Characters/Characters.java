@@ -2,6 +2,9 @@ package Models.Characters;
 
 import java.util.Random;
 
+/**
+ * The Characters class represents the base class for all characters in the game.
+ */
 public class Characters {
 
     private int hp;
@@ -13,6 +16,16 @@ public class Characters {
     private int initialHP;
     private int coins;
 
+    /**
+     * Constructs a Characters object with specified attributes.
+     *
+     * @param hp     The initial health points.
+     * @param damage The damage points.
+     * @param shield The initial shield points.
+     * @param weight The weight of the character.
+     * @param name   The name of the character.
+     * @param coins  The number of coins associated with the character.
+     */
     public Characters(int hp, int damage, int shield, int weight, String name, int coins) {
         this.hp = hp;
         this.damage = damage;
@@ -24,39 +37,41 @@ public class Characters {
         this.coins = coins;
     }
 
-
+    /**
+     * Takes damage based on a random factor and updates health and shield accordingly.
+     *
+     * @param damage The damage to be taken.
+     */
     public void takeDamage(int damage) {
         Random r = new Random();
         int random = r.nextInt(1001);
-        //Toucher
-        if (random <= this.weight){
+        // Toucher
+        if (random <= this.weight) {
             if (this.shield > 0) {
                 this.shield = this.shield - damage;
-                if (this.shield < 0){
+                if (this.shield < 0) {
                     this.hp = this.hp + (this.shield / 2);
                     this.shield = 0;
                 }
-            }
-            else {
+            } else {
                 this.shield = 0;
                 this.hp = this.hp - damage;
             }
             System.out.println("Touché !\n");
-        //Errafler
+            // Errafler
         } else if (random <= this.weight + 100) {
             if (this.shield > 0) {
                 this.shield = this.shield - (damage / 2);
-                if (this.shield < 0){
+                if (this.shield < 0) {
                     this.hp = this.hp + (this.shield / 2);
                     this.shield = 0;
                 }
-            }
-            else {
+            } else {
                 this.shield = 0;
                 this.hp = this.hp - (damage / 2);
             }
             System.out.println("Éraflé !\n");
-        //Raté
+            // Raté
         } else {
             System.out.println("Raté !\n");
         }
@@ -66,27 +81,40 @@ public class Characters {
         }
     }
 
+    /**
+     * Attacks another character by causing damage.
+     *
+     * @param Ennemis The character to be attacked.
+     */
     public void attack(Characters Ennemis) {
         Ennemis.takeDamage(this.damage);
     }
 
-    public void retrieveShield(){
-        if (this.shield >= this.initialShield){
+    /**
+     * Retrieves the shield points for the character.
+     */
+    public void retrieveShield() {
+        if (this.shield >= this.initialShield) {
             this.shield = this.initialShield;
             System.out.println("Bouclier max\n");
-        } else{
+        } else {
             this.shield += this.initialShield / 4;
-            System.out.println("Régénération du bouclier de " + this.initialShield / 4 +"\n");
+            System.out.println("Régénération du bouclier de " + this.initialShield / 4 + "\n");
         }
     }
 
-    public void choice(Characters Ennemis){
+    /**
+     * Makes a choice for the character based on its current state.
+     *
+     * @param Ennemis The enemy character.
+     */
+    public void choice(Characters Ennemis) {
         Random r = new Random();
         int n;
-        if (this.shield == 0){
-            if (this.hp <= this.initialShield /2){
+        if (this.shield == 0) {
+            if (this.hp <= this.initialShield / 2) {
                 n = r.nextInt(2);
-                if (n == 0){
+                if (n == 0) {
                     this.retrieveShield();
                 } else {
                     this.attack(Ennemis);
@@ -101,24 +129,32 @@ public class Characters {
             }
         } else if (this.shield <= this.initialShield / 2) {
             n = r.nextInt(5);
-            if (n == 0){
+            if (n == 0) {
                 this.retrieveShield();
             } else {
                 this.attack(Ennemis);
             }
-        }else {
+        } else {
             this.attack(Ennemis);
         }
     }
-    public static void addCoins(Characters enemy,Characters player){
+
+    /**
+     * Adds the coins from the defeated enemy to the player's reserve.
+     *
+     * @param enemy  The defeated enemy character.
+     * @param player The player character.
+     */
+    public static void addCoins(Characters enemy, Characters player) {
         player.setCoins(player.getCoins() + enemy.getCoins());
-        if (enemy.getCoins() == 1){
-            System.out.println(enemy.getCoins() + " StarDust a été ajouté à votre reserve, suite à la mort de : " + enemy.getName() + "\n");
+        if (enemy.getCoins() == 1) {
+            System.out.println(enemy.getCoins() + " StarDust a été ajouté à votre réserve, suite à la mort de : " + enemy.getName() + "\n");
         } else {
-            System.out.println(enemy.getCoins() + " StarDust ont été ajoutés à votre reserve, suite à la mort de : " + enemy.getName() + "\n");
+            System.out.println(enemy.getCoins() + " StarDust ont été ajoutés à votre réserve, suite à la mort de : " + enemy.getName() + "\n");
         }
 
     }
+
     public int getInitialHP() {
         return initialHP;
     }
@@ -175,6 +211,7 @@ public class Characters {
     public int getInitialShield() {
         return initialShield;
     }
+
     public void setInitialShield(int initialShield) {
         this.initialShield = initialShield;
     }

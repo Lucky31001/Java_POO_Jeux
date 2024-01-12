@@ -12,7 +12,14 @@ import Models.Characters.Characters;
 import Models.Characters.Player;
 import Models.Characters.Player;
 
+
 public class cli {
+
+    /**
+     * Displays the start menu for the Star Destroyer game.
+     * Players can choose to begin a new game, continue an existing game, or exit the program.
+     * If an invalid input is provided, the user is prompted again until a valid choice is made.
+     */
     public static void startMenu() {
         System.out.print("\033[H\033[2J");
         System.out.flush();
@@ -32,7 +39,11 @@ public class cli {
                     System.out.println("Quitter");
                     break;
                 default:
-                    System.out.println("Invalide");
+                    System.out.println("Invalide");try {
+                    Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
                     startMenu();
                     break;
 
@@ -43,6 +54,10 @@ public class cli {
         }
     }
 
+    /**
+     * Displays the game over message and options for restarting or quitting the game.
+     * If an invalid input is provided, the user is prompted again until a valid choice is made.
+     */
     public static void restartLoose() {
         System.out.print("\033[H\033[2J");
         System.out.flush();
@@ -60,6 +75,11 @@ public class cli {
                     break;
                 default:
                     System.out.println("Invalide");
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
                     startMenu();
                     break;
 
@@ -70,6 +90,10 @@ public class cli {
         }
     }
 
+    /**
+     * Displays the victory message and options for restarting or quitting the game.
+     * If an invalid input is provided, the user is prompted again until a valid choice is made.
+     */
     public static void restartWin() {
         System.out.print("\033[H\033[2J");
         System.out.flush();
@@ -87,6 +111,11 @@ public class cli {
                     break;
                 default:
                     System.out.println("Invalide");
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
                     startMenu();
                     break;
 
@@ -97,6 +126,15 @@ public class cli {
         }
     }
 
+    /**
+     * Sets the difficulty level for the game, either starting a new game or continuing an existing one.
+     * Players can choose the difficulty (easy, normal, hard) and enter their username.
+     * If an invalid input is provided, the user is prompted again until a valid choice is made.
+     *
+     * @param bool A boolean indicating whether to start a new game (false) or continue an existing one (true).
+     *             If false, the method will guide the player through starting a new game.
+     *             If true, the method will guide the player through continuing an existing game.
+     */
     public static void setDifficulty(boolean bool) {
         if (!bool) { //Commencer
             System.out.print("\033[H\033[2J");
@@ -134,7 +172,14 @@ public class cli {
                         startMenu();
                         break;
                     default:
-                        throw new IllegalStateException("Unexpected value: " + response);
+                        System.out.println("Invalide");
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
+                        setDifficulty(bool);
+                        break;
                 }
             } catch (IOException e) {
                 throw new RuntimeException(e);
@@ -163,7 +208,14 @@ public class cli {
                         startMenu();
                         break;
                     default:
-                        throw new IllegalStateException("Unexpected value: " + response);
+                        System.out.println("Invalide");
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
+                        setDifficulty(bool);
+                        break;
                 }
             } catch (IOException e) {
                 throw new RuntimeException(e);
@@ -173,7 +225,15 @@ public class cli {
         }
     }
 
-
+    /**
+     * Displays the Station menu where players can perform various actions.
+     * Players can choose to repair their spaceship's HP by spending StarDust (SD),
+     * or return to the main combat menu.
+     *
+     * @param player   The player character whose spaceship's HP and StarDust will be affected by the actions.
+     * @param Enemies  An ArrayList of Characters representing the enemies in the current combat scenario.
+     * @param n        An integer representing the current turn or round in the combat scenario.
+     */
     public static void station(Characters player,ArrayList<Characters> Enemies,int n){
         System.out.print("\033[H\033[2J");
         System.out.flush();
@@ -235,15 +295,30 @@ public class cli {
                 case 3:
                     Combat.whatNext(player, Enemies, n);
                     break;
+                default:
+                    System.out.println("Invalide");
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                    station(player,Enemies, n);
+                    break;
             }
-        } catch (InputMismatchException e) {
-            System.out.println("Invalide : " + e);
-            startMenu();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
+    /**
+     * Displays the Garage menu where players can perform various actions related to their spaceship.
+     * Players can choose to heal, boost shield, upgrade weapons, buy ammo, explore mysterious items,
+     * or make special purchases.
+     *
+     * @param player   The player character whose spaceship's attributes and inventory will be affected by the actions.
+     * @param Enemies  An ArrayList of Characters representing the enemies in the current combat scenario.
+     * @param n        An integer representing the current turn or round in the combat scenario.
+     */
     public static void garage(Characters player, ArrayList<Characters> Enemies, int n){
         System.out.print("\033[H\033[2J");
         System.out.flush();
@@ -315,6 +390,15 @@ public class cli {
                         case 3:
                             garage(player, Enemies, n);
                             break;
+                        default:
+                            System.out.println("Invalide");
+                            try {
+                                Thread.sleep(1000);
+                            } catch (InterruptedException e) {
+                                throw new RuntimeException(e);
+                            }
+                            garage(player,Enemies, n);
+                            break;
                     }
                     break;
                 case 2:
@@ -371,6 +455,15 @@ public class cli {
                             break;
                         case 3:
                             garage(player, Enemies, n);
+                            break;
+                        default:
+                            System.out.println("Invalide");
+                            try {
+                                Thread.sleep(1000);
+                            } catch (InterruptedException e) {
+                                throw new RuntimeException(e);
+                            }
+                            garage(player,Enemies, n);
                             break;
                     }
                     break;
@@ -453,6 +546,15 @@ public class cli {
                         case 4:
                             garage(player, Enemies, n);
                             break;
+                        default:
+                            System.out.println("Invalide");
+                            try {
+                                Thread.sleep(1000);
+                            } catch (InterruptedException e) {
+                                throw new RuntimeException(e);
+                            }
+                            garage(player,Enemies, n);
+                            break;
                     }
                     break;
                 case 4:
@@ -509,6 +611,15 @@ public class cli {
                             break;
                         case 3:
                             garage(player, Enemies, n);
+                            break;
+                        default:
+                            System.out.println("Invalide");
+                            try {
+                                Thread.sleep(1000);
+                            } catch (InterruptedException e) {
+                                throw new RuntimeException(e);
+                            }
+                            garage(player,Enemies, n);
                             break;
                     }
                     break;
@@ -570,11 +681,27 @@ public class cli {
                         case 3:
                             garage(player, Enemies, n);
                             break;
+                        default:
+                            System.out.println("Invalide");
+                            try {
+                                Thread.sleep(1000);
+                            } catch (InterruptedException e) {
+                                throw new RuntimeException(e);
+                            }
+                            garage(player,Enemies, n);
                     }
                     break;
                 case 6:
                     Combat.whatNext(player, Enemies, n);
                     break;
+                default:
+                    System.out.println("Invalide");
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                    garage(player,Enemies, n);
             }
 
         } catch (InputMismatchException e) {
