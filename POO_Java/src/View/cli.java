@@ -49,7 +49,7 @@ public class cli {
 
             }
         } catch (InputMismatchException e) {
-            System.out.println("Invalide : " + e);
+            System.out.println("Invalide");
             startMenu();
         }
     }
@@ -80,13 +80,13 @@ public class cli {
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
-                    startMenu();
+                    restartLoose();
                     break;
 
             }
         } catch (InputMismatchException e) {
-            System.out.println("Invalide : " + e);
-            startMenu();
+            System.out.println("Invalide");
+            restartLoose();
         }
     }
 
@@ -116,13 +116,13 @@ public class cli {
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
-                    startMenu();
+                    restartWin();
                     break;
 
             }
         } catch (InputMismatchException e) {
-            System.out.println("Invalide : " + e);
-            startMenu();
+            System.out.println("Invalide");
+            restartWin();
         }
     }
 
@@ -183,7 +183,10 @@ public class cli {
                 }
             } catch (IOException e) {
                 throw new RuntimeException(e);
-            } finally {
+
+            } catch (InputMismatchException e) {
+                System.out.println("Invalide");
+                setDifficulty(bool);
             }
         } else { // Continuer
             System.out.flush();
@@ -219,8 +222,9 @@ public class cli {
                 }
             } catch (IOException e) {
                 throw new RuntimeException(e);
-            } finally {
-
+            } catch (InputMismatchException e) {
+                System.out.println("Invalide");
+                setDifficulty(bool);
             }
         }
     }
@@ -307,6 +311,9 @@ public class cli {
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
+        } catch (InputMismatchException e) {
+            System.out.println("Invalide");
+            station(player,Enemies, n);
         }
     }
 
@@ -658,7 +665,7 @@ public class cli {
                             break;
                         case 2:
                             if (player.getCoins() >= 55000) {
-                                player.setDamage(1500);
+                                player.setDamage(34500);
                                 player.setWeight(player.getWeight() + 1000);
                                 player.setCoins(player.getCoins() - 55000);
                                 System.out.println("Achat bien effectué");
@@ -689,6 +696,7 @@ public class cli {
                                 throw new RuntimeException(e);
                             }
                             garage(player,Enemies, n);
+                            break;
                     }
                     break;
                 case 6:
@@ -702,11 +710,12 @@ public class cli {
                         throw new RuntimeException(e);
                     }
                     garage(player,Enemies, n);
+                    break;
             }
 
         } catch (InputMismatchException e) {
-            System.out.println("Invalide : " + e);
-            startMenu();
+            System.out.println("Invalide");
+            garage(player,Enemies, n);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

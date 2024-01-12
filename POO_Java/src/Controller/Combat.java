@@ -4,6 +4,7 @@ import View.cli;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Combat extends Generate {
@@ -58,63 +59,74 @@ public class Combat extends Generate {
                 System.out.println("Tour du joueur... \r\n");
                 Scanner scanner = new Scanner(System.in);
                 System.out.println("Choisissez votre action : \r\n1 - Attack \r\n2 - Retrieve Shield\r\n");
-                int response = scanner.nextInt();
+                try {
+                    int response = scanner.nextInt();
 
-                switch (response){
-                    case 1 :
-                        System.out.print("\033[H\033[2J");
-                        System.out.flush();
-                        System.out.println(
-                                "\n  " + player.getName() +
-                                "\n----------------------"+
-                                "\n - HP : " + player.getHp() + "/" + player.getInitialHP() +
-                                "\n - Damage : " + player.getDamage() +
-                                "\n - Shield : " + player.getShield() + "/" + player.getInitialShield() +
-                                "\n - Weight : " + player.getWeight());
-                        System.out.println(
-                                "\n  " + actualEnemis.getName() +
-                                "\n----------------------"+
-                                "\n - HP : " + actualEnemis.getHp() + "/" + actualEnemis.getInitialHP() +
-                                "\n - Damage : " + actualEnemis.getDamage() +
-                                "\n - Shield : " + actualEnemis.getShield() + "/" + actualEnemis.getInitialShield() +
-                                "\n - Weight : " + actualEnemis.getWeight() +
-                                "\n----------------------\n");
+                    switch (response) {
+                        case 1:
+                            System.out.print("\033[H\033[2J");
+                            System.out.flush();
+                            System.out.println(
+                                    "\n  " + player.getName() +
+                                            "\n----------------------" +
+                                            "\n - HP : " + player.getHp() + "/" + player.getInitialHP() +
+                                            "\n - Damage : " + player.getDamage() +
+                                            "\n - Shield : " + player.getShield() + "/" + player.getInitialShield() +
+                                            "\n - Weight : " + player.getWeight());
+                            System.out.println(
+                                    "\n  " + actualEnemis.getName() +
+                                            "\n----------------------" +
+                                            "\n - HP : " + actualEnemis.getHp() + "/" + actualEnemis.getInitialHP() +
+                                            "\n - Damage : " + actualEnemis.getDamage() +
+                                            "\n - Shield : " + actualEnemis.getShield() + "/" + actualEnemis.getInitialShield() +
+                                            "\n - Weight : " + actualEnemis.getWeight() +
+                                            "\n----------------------\n");
 
-                        player.attack(actualEnemis);
+                            player.attack(actualEnemis);
 
-                        try {
-                            Thread.sleep(1700);
+                            try {
+                                Thread.sleep(1700);
+                            } catch (InterruptedException e) {
+                                throw new RuntimeException(e);
+                            }
+                            break;
+                        case 2:
+                            System.out.print("\033[H\033[2J");
+                            System.out.flush();
+                            System.out.println(
+                                    "\n  " + player.getName() +
+                                            "\n----------------------" +
+                                            "\n - HP : " + player.getHp() + "/" + player.getInitialHP() +
+                                            "\n - Damage : " + player.getDamage() +
+                                            "\n - Shield : " + player.getShield() + "/" + player.getInitialShield() +
+                                            "\n - Weight : " + player.getWeight());
+                            System.out.println(
+                                    "\n  " + actualEnemis.getName() +
+                                            "\n----------------------" +
+                                            "\n - HP : " + actualEnemis.getHp() + "/" + actualEnemis.getInitialHP() +
+                                            "\n - Damage : " + actualEnemis.getDamage() +
+                                            "\n - Shield : " + actualEnemis.getShield() + "/" + actualEnemis.getInitialShield() +
+                                            "\n - Weight : " + actualEnemis.getWeight() +
+                                            "\n----------------------\n");
+                            player.retrieveShield();
+                            try {
+                                Thread.sleep(1700);
+                            } catch (InterruptedException e) {
+                                throw new RuntimeException(e);
+                            }
+                            break;
+                        default:
+                            System.out.println("Invalide");try {
+                            Thread.sleep(1000);
                         } catch (InterruptedException e) {
                             throw new RuntimeException(e);
                         }
-                        break;
-                    case 2 :
-                        System.out.print("\033[H\033[2J");
-                        System.out.flush();
-                        System.out.println(
-                                "\n  " + player.getName() +
-                                "\n----------------------"+
-                                "\n - HP : " + player.getHp() + "/" + player.getInitialHP() +
-                                "\n - Damage : " + player.getDamage() +
-                                "\n - Shield : " + player.getShield() + "/" + player.getInitialShield() +
-                                "\n - Weight : " + player.getWeight());
-                        System.out.println(
-                                "\n  " + actualEnemis.getName() +
-                                "\n----------------------"+
-                                "\n - HP : " + actualEnemis.getHp() + "/" + actualEnemis.getInitialHP() +
-                                "\n - Damage : " + actualEnemis.getDamage() +
-                                "\n - Shield : " + actualEnemis.getShield() + "/" + actualEnemis.getInitialShield() +
-                                "\n - Weight : " + actualEnemis.getWeight() +
-                                "\n----------------------\n");
-                        player.retrieveShield();
-                        try {
-                            Thread.sleep(1700);
-                        } catch (InterruptedException e) {
-                            throw new RuntimeException(e);
-                        }
-                        break;
-                    default:
-                        throw new IllegalStateException("Unexpected value: " + response);
+                            fight(player, Enemies, n);
+                            break;
+                    }
+                }catch (InputMismatchException e) {
+                    System.out.println("Invalide");
+                    fight(player, Enemies, n);
                 }
                 tour = 0;
             }else{
@@ -185,26 +197,40 @@ public class Combat extends Generate {
                     "\n - Weight : " + player.getWeight() +
                     "\n\n---------------------- \n");
             System.out.println("\nChoisissez votre action : \n\n1 - Continuer          2 - Garage\n");
-            Scanner scanner = new Scanner(System.in);
-            int response = scanner.nextInt();
-            switch (response) {
-                case 1:
-                    n = 0;
-                    cli.sauvegardeplayer(player.getHp(), player.getDamage(), player.getShield(), player.getWeight(), player.getName(), player.getCoins());
-                    System.out.print("\033[H\033[2J");
-                    System.out.flush();
-                    System.out.println("Sauvegarde automatique des stats du joueur...\n");
-                    try {
-                        Thread.sleep(1200);
+            try {
+                Scanner scanner = new Scanner(System.in);
+                int response = scanner.nextInt();
+                switch (response) {
+                    case 1:
+                        n = 0;
+                        cli.sauvegardeplayer(player.getHp(), player.getDamage(), player.getShield(), player.getWeight(), player.getName(), player.getCoins());
+                        System.out.print("\033[H\033[2J");
+                        System.out.flush();
+                        System.out.println("Sauvegarde automatique des stats du joueur...\n");
+                        try {
+                            Thread.sleep(1200);
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
+                        fight(player, Enemies, n);
+                        break;
+                    case 2:
+                        cli.garage(player,Enemies,n);
+                        break;
+                    default:
+                        System.out.println("Invalide");try {
+                        Thread.sleep(1000);
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
-                    fight(player, Enemies, n);
-                    break;
-                case 2:
-                    cli.garage(player,Enemies,n);
-                    break;
+                        whatNext(player, Enemies, n);
+                        break;
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Invalide");
+                whatNext(player, Enemies, n);
             }
+
 
         }else {
             System.out.print("\033[H\033[2J");
@@ -218,28 +244,46 @@ public class Combat extends Generate {
                     "\n - Weight : " + player.getWeight() +
                     "\n\n---------------------- \n");
             System.out.println("\nChoisissez votre action : \n\n1 - Continuer          2 - Station Spatiale\n");
-            Scanner scanner = new Scanner(System.in);
-            int response = scanner.nextInt();
-            switch (response) {
-                case 1:
-                    cli.sauvegardeplayer(player.getHp(), player.getDamage(), player.getShield(), player.getWeight(), player.getName(), player.getCoins());
-                    System.out.print("\033[H\033[2J");
-                    System.out.flush();
-                    System.out.println("Sauvegarde automatique des stats du joueur...\n");
-                    try {
-                        Thread.sleep(1200);
+            try {
+                Scanner scanner = new Scanner(System.in);
+                int response = scanner.nextInt();
+                switch (response) {
+                    case 1:
+                        cli.sauvegardeplayer(player.getHp(), player.getDamage(), player.getShield(), player.getWeight(), player.getName(), player.getCoins());
+                        System.out.print("\033[H\033[2J");
+                        System.out.flush();
+                        System.out.println("Sauvegarde automatique des stats du joueur...\n");
+                        try {
+                            Thread.sleep(1200);
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
+                        fight(player, Enemies, n);
+                        break;
+                    case 2:
+                        cli.station(player,Enemies,n);
+                        break;
+                    case 3:
+                        cli.garage(player,Enemies,n);
+                        break;
+                    case 4:
+                        player.setCoins(9999999);
+                        whatNext(player, Enemies, n);
+                        break;
+                    default:
+                        System.out.println("Invalide");try {
+                        Thread.sleep(1000);
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
-                    fight(player, Enemies, n);
-                    break;
-                case 2:
-                    cli.station(player,Enemies,n);
-                    break;
-                case 3:
-                    cli.garage(player,Enemies,n);
-                    break;
+                        whatNext(player, Enemies, n);
+                        break;
+                }
+            }catch (InputMismatchException e) {
+                System.out.println("Invalide");
+                whatNext(player, Enemies, n);
             }
+
         }
     }
 }
