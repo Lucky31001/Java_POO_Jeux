@@ -4,6 +4,7 @@ import Models.Characters.Enemis.Cargo;
 import Models.Characters.Enemis.Patrouilleur;
 import Models.Characters.Enemis.Chasseur;
 import Models.Characters.Player;
+import View.cli;
 
 import java.util.ArrayList;
 
@@ -17,7 +18,7 @@ public class Generate {
         ArrayList<Characters> Enemies = new ArrayList<>();
 
         Characters cargo = new Cargo(1000, 500, 750, 800, "Cargo", 1111);
-        Characters patrouilleur = new Patrouilleur(10000, 100000, 500, 800, "Patrouilleur", 11111);
+        Characters patrouilleur = new Patrouilleur(1200, 300, 500, 800, "Patrouilleur", 11111);
         Characters chasseur = new Chasseur(1000, 200, 350, 800, "Chasseur", 1111);
         Characters chasseur2 = new Chasseur(1000, 2000, 350, 800, "Chasseur", 1111);
 
@@ -59,8 +60,17 @@ public class Generate {
         return Enemies;
     }
 
-    public static Characters generatePlayer(String name) {
-        Characters player = new Player(1000, 1000, 500, 550, name, 0);
+    public static Characters generateplayer(String name) {
+        int hp = 1000;
+        int damage = 350;
+        int shield = 500;
+        int weight = 550;
+        String nom = name;
+        int coins = 0;
+
+        Characters player = new Player(hp, damage, shield, weight, nom, coins);
+        cli.sauvegardeplayer(hp, damage, shield, weight, nom, coins);
+        System.out.println("Création du joueur");
         return player;
     }
 
