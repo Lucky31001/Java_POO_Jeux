@@ -9,7 +9,8 @@ import java.util.concurrent.ExecutionException;
 import Controller.Combat;
 import Controller.Generate;
 import Models.Characters.Characters;
-import Models.Characters.player;
+import Models.Characters.Player;
+import Models.Characters.Player;
 
 public class cli {
     public static void startMenu() {
@@ -241,9 +242,6 @@ public class cli {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        cli.sauvegardeplayer(player.getHp(), player.getDamage(), player.getShield(), player.getWeight(), player.getName(), player.getCoins());
-        System.out.println("Sauvegarde automatique des stats du joueur...");
-
     }
 
     public static void garage(Characters player, ArrayList<Characters> Enemies, int n){
@@ -648,7 +646,7 @@ public class cli {
         int shield = Integer.parseInt(sb.get(2));
         int weight = Integer.parseInt(sb.get(3));
         int coins = Integer.parseInt(sb.getLast());
-        Characters player = new player(hp, damage, shield, weight, sb.get(4), coins);
+        Characters player = new Player(hp, damage, shield, weight, sb.get(4), coins);
         return player;
     }
 

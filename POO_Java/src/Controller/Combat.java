@@ -13,7 +13,7 @@ public class Combat extends Generate {
         int fight = 0;
         int tour = 0;
         boolean victoire = false;
-        cli.sauvegardePlayer(player.getHp(), player.getDamage(), player.getShield(), player.getWeight(), player.getName(), player.getCoins());
+        cli.sauvegardeplayer(player.getHp(), player.getDamage(), player.getShield(), player.getWeight(), player.getName(), player.getCoins());
         Characters actualEnemis = Enemies.getFirst();
         System.out.print("\033[H\033[2J");
         System.out.flush();
@@ -156,7 +156,7 @@ public class Combat extends Generate {
     }
 
 
-    public static void whatNext(Characters player, ArrayList<Characters> Enemies,int n){
+    public static void whatNext(Characters player, ArrayList<Characters> Enemies,int n) throws IOException {
         player.setShield(player.getInitialShield());
         if (n == 3){
             System.out.print("\033[H\033[2J");
@@ -175,6 +175,15 @@ public class Combat extends Generate {
             switch (response) {
                 case 1:
                     n = 0;
+                    cli.sauvegardeplayer(player.getHp(), player.getDamage(), player.getShield(), player.getWeight(), player.getName(), player.getCoins());
+                    System.out.print("\033[H\033[2J");
+                    System.out.flush();
+                    System.out.println("Sauvegarde automatique des stats du joueur...\n");
+                    try {
+                        Thread.sleep(1200);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
                     fight(player, Enemies, n);
                     break;
                 case 2:
@@ -198,6 +207,15 @@ public class Combat extends Generate {
             int response = scanner.nextInt();
             switch (response) {
                 case 1:
+                    cli.sauvegardeplayer(player.getHp(), player.getDamage(), player.getShield(), player.getWeight(), player.getName(), player.getCoins());
+                    System.out.print("\033[H\033[2J");
+                    System.out.flush();
+                    System.out.println("Sauvegarde automatique des stats du joueur...\n");
+                    try {
+                        Thread.sleep(1200);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
                     fight(player, Enemies, n);
                     break;
                 case 2:
