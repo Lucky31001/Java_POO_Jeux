@@ -41,7 +41,7 @@ public class Characters {
                 this.shield = 0;
                 this.hp = this.hp - damage;
             }
-            System.out.println("Touché !");
+            System.out.println("Touché !\n");
         //Errafler
         } else if (random <= this.weight + 100) {
             if (this.shield > 0) {
@@ -55,32 +55,29 @@ public class Characters {
                 this.shield = 0;
                 this.hp = this.hp - (damage / 2);
             }
-            System.out.println("Éraflé !");
+            System.out.println("Éraflé !\n");
         //Raté
         } else {
-            System.out.println("Raté !");
+            System.out.println("Raté !\n");
         }
         if (this.hp < 0) {
-            System.out.println(getName() + " est mort");
+            System.out.println(getName() + " est mort\n");
             this.hp = 0;
         }
     }
 
     public void attack(Characters Ennemis) {
         Ennemis.takeDamage(this.damage);
-
     }
 
     public void retrieveShield(){
         if (this.shield >= this.initialShield){
             this.shield = this.initialShield;
-            System.out.println("Bouclier max");
+            System.out.println("Bouclier max\n");
         } else{
             this.shield += this.initialShield / 4;
-            System.out.println("Régénération du bouclier de " + this.initialShield / 4);
+            System.out.println("Régénération du bouclier de " + this.initialShield / 4 +"\n");
         }
-        System.out.println(getName() + ": \n" + this.getShield() + "/" + this.getInitialShield()
-                + " Shield \n" + this.getHp() + "/" + this.getInitialHP() + " HP \n");
     }
 
     public void choice(Characters Ennemis){

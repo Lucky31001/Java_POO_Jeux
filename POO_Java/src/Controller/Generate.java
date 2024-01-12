@@ -18,10 +18,13 @@ public class Generate {
         ArrayList<Characters> Enemies = new ArrayList<>();
 
         Characters cargo = new Cargo(1000, 500, 750, 800, "Cargo", 1111);
-        Characters patrouilleur = new Patrouilleur(1000, 350, 500, 550, "Patrouilleur", 11111);
-        Characters chasseur = new Chasseur(1000, 200, 350, 250, "Chasseur", 1111);
+        Characters patrouilleur = new Patrouilleur(10000, 100000, 500, 800, "Patrouilleur", 11111);
+        Characters chasseur = new Chasseur(1000, 200, 350, 800, "Chasseur", 1111);
+        Characters chasseur2 = new Chasseur(1000, 2000, 350, 800, "Chasseur", 1111);
 
+        Enemies.add(chasseur);
         Enemies.add(patrouilleur);
+        Enemies.add(chasseur2);
         Enemies.add(cargo);
         return Enemies;
 

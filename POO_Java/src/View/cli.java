@@ -9,10 +9,11 @@ import java.util.concurrent.ExecutionException;
 import Controller.Combat;
 import Controller.Generate;
 import Models.Characters.Characters;
-import Models.Characters.Player;
+import Models.Characters.player;
 
 public class cli {
     public static void startMenu() {
+        System.out.print("\033[H\033[2J");
         System.out.flush();
         Scanner scanner = new Scanner(System.in);
         System.out.println("\n    WELCOME TO STAR DESTROYER\r\n\n");
@@ -42,6 +43,7 @@ public class cli {
     }
 
     public static void restartLoose() {
+        System.out.print("\033[H\033[2J");
         System.out.flush();
         Scanner scanner = new Scanner(System.in);
         System.out.println("            GAME OVER !\r\n\n");
@@ -68,6 +70,7 @@ public class cli {
     }
 
     public static void restartWin() {
+        System.out.print("\033[H\033[2J");
         System.out.flush();
         Scanner scanner = new Scanner(System.in);
         System.out.println("            YOU WON !\r\n\n");
@@ -95,6 +98,7 @@ public class cli {
 
     public static void setDifficulty(boolean bool) {
         if (!bool) { //Commencer
+            System.out.print("\033[H\033[2J");
             System.out.flush();
             System.out.println("Choisissez la difficultée de votre nouvelle partie :\r\n");
             System.out.println("1 - Easy \r\n2 - Normal \r\n3 - Hard \n\n4 - Menu ");
@@ -105,19 +109,25 @@ public class cli {
                 int response = scanner.nextInt();
                 switch (response) {
                     case 1:
+                        System.out.print("\033[H\033[2J");
+                        System.out.flush();
                         System.out.println("Rentrer votre pseudo : \r\n");
                         name = scanner1.next();
-                        boolean victoire = Combat.fight(Generate.generatePlayer(name), Generate.easy(), 0);
+                        boolean victoire = Combat.fight(Generate.generateplayer(name), Generate.easy(), 0);
                         break;
                     case 2:
+                        System.out.print("\033[H\033[2J");
+                        System.out.flush();
                         System.out.println("Rentrer votre pseudo : \r\n");
                         name = scanner1.next();
-                        victoire = Combat.fight(Generate.generatePlayer(name), Generate.normal(), 0);
+                        victoire = Combat.fight(Generate.generateplayer(name), Generate.normal(), 0);
                         break;
                     case 3:
+                        System.out.print("\033[H\033[2J");
+                        System.out.flush();
                         System.out.println("Rentrer votre pseudo : \r\n");
                         name = scanner1.next();
-                        victoire = Combat.fight(Generate.generatePlayer(name), Generate.hard(), 0);
+                        victoire = Combat.fight(Generate.generateplayer(name), Generate.hard(), 0);
                         break;
                     case 4:
                         startMenu();
@@ -128,7 +138,6 @@ public class cli {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             } finally {
-
             }
         } else { // Continuer
             System.out.flush();
@@ -141,13 +150,13 @@ public class cli {
                 int response = scanner.nextInt();
                 switch (response) {
                     case 1:
-                        boolean victoire = Combat.fight(cli.LectureSauvegardePlayer(), Generate.easy(), 0);
+                        boolean victoire = Combat.fight(cli.LectureSauvegardeplayer(), Generate.easy(), 0);
                         break;
                     case 2:
-                        victoire = Combat.fight(cli.LectureSauvegardePlayer(), Generate.normal(), 0);
+                        victoire = Combat.fight(cli.LectureSauvegardeplayer(), Generate.normal(), 0);
                         break;
                     case 3:
-                        victoire = Combat.fight(cli.LectureSauvegardePlayer(), Generate.hard(), 0);
+                        victoire = Combat.fight(cli.LectureSauvegardeplayer(), Generate.hard(), 0);
                         break;
                     case 4:
                         startMenu();
@@ -163,7 +172,9 @@ public class cli {
         }
     }
 
-    public static void station(Characters player, ArrayList<Characters> Enemies, int n) {
+
+    public static void station(Characters player,ArrayList<Characters> Enemies,int n){
+        System.out.print("\033[H\033[2J");
         System.out.flush();
         System.out.println("Bienvenue dans la Station :\r\n");
         System.out.println("Solde :" + player.getCoins() + " SD \r\n");
@@ -173,25 +184,51 @@ public class cli {
             int response = scanner.nextInt();
             switch (response) {
                 case 1:
-                    if (player.getCoins() >= 300) {
+                    if (player.getCoins() >= 300){
                         player.setHp(player.getHp() + 100);
                         player.setCoins(player.getCoins() - 300);
+                        if (player.getHp() > player.getInitialHP()){
+                            player.setHp(player.getInitialHP());
+                        }
                         System.out.println("Achat bien effectué");
-                        Combat.whatNext(player, Enemies, n);
-                    } else {
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
+                        Combat.whatNext(player,Enemies,n);
+                    }else {
                         System.out.println("Vous n'avez pas assez de StarDust");
-                        Combat.whatNext(player, Enemies, n);
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
+                        Combat.whatNext(player,Enemies,n);
                     }
                     break;
                 case 2:
-                    if (player.getCoins() >= 500) {
+                    if (player.getCoins() >= 500){
                         player.setHp(player.getHp() + 300);
                         player.setCoins(player.getCoins() - 500);
+                        if (player.getHp() > player.getInitialHP()){
+                            player.setHp(player.getInitialHP());
+                        }
                         System.out.println("Achat bien effectué");
-                        Combat.whatNext(player, Enemies, n);
-                    } else {
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
+                        Combat.whatNext(player,Enemies,n);
+                    }else {
                         System.out.println("Vous n'avez pas assez de StarDust");
-                        Combat.whatNext(player, Enemies, n);
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
+                        Combat.whatNext(player,Enemies,n);
                     }
                     break;
                 case 3:
@@ -204,15 +241,19 @@ public class cli {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        cli.sauvegardePlayer(player.getHp(), player.getDamage(), player.getShield(), player.getWeight(), player.getName(), player.getCoins());
+        cli.sauvegardeplayer(player.getHp(), player.getDamage(), player.getShield(), player.getWeight(), player.getName(), player.getCoins());
         System.out.println("Sauvegarde automatique des stats du joueur...");
 
     }
 
-    public static void garage(Characters player, ArrayList<Characters> Enemies, int n) {
+    public static void garage(Characters player, ArrayList<Characters> Enemies, int n){
+        System.out.print("\033[H\033[2J");
         System.out.flush();
-        System.out.println("Bienvenue au garage :\r\n");
-        System.out.println("Solde : " + player.getCoins() + " SD \r\n");
+        System.out.println("Bienvenue au garage :\r\n" +
+                "Vos HP et Shield ont été restaurés");
+        player.setShield(player.getInitialShield());
+        player.setHp(player.getInitialHP());
+        System.out.println("Solde : "+ player.getCoins() + " SD \r\n");
         System.out.println("1 - Heal \r\n2 - Shield \r\n3 - Weapons \r\n4 - Ammo \r\n5 - ??? \r\n6 - Retour");
         Scanner scanner = new Scanner(System.in);
         try {
@@ -220,6 +261,7 @@ public class cli {
             scanner.nextLine();
             switch (response) {
                 case 1:
+                    System.out.print("\033[H\033[2J");
                     System.out.flush();
                     System.out.println("Heal :\r\n");
                     System.out.println("Solde :" + player.getCoins() + " SD \r\n");
@@ -230,24 +272,46 @@ public class cli {
                         case 1:
                             if (player.getCoins() >= 300) {
                                 player.setInitialHP(player.getInitialHP() + ((player.getInitialHP() * 5) / 100));
+                                player.setHp(player.getInitialHP());
                                 player.setCoins(player.getCoins() - 300);
                                 System.out.println("Achat bien effectué");
-                                Combat.whatNext(player, Enemies, n);
+                                try {
+                                    Thread.sleep(1000);
+                                } catch (InterruptedException e) {
+                                    throw new RuntimeException(e);
+                                }
+                                Combat.whatNext(player,Enemies,n);
 
                             } else {
                                 System.out.println("Vous n'avez pas assez de StarDust");
-                                Combat.whatNext(player, Enemies, n);
+                                try {
+                                    Thread.sleep(1000);
+                                } catch (InterruptedException e) {
+                                    throw new RuntimeException(e);
+                                }
+                                Combat.whatNext(player,Enemies,n);
                             }
                             break;
                         case 2:
                             if (player.getCoins() >= 750) {
                                 player.setInitialHP(player.getInitialHP() + ((player.getInitialHP() * 15) / 100));
+                                player.setHp(player.getInitialHP());
                                 player.setCoins(player.getCoins() - 750);
                                 System.out.println("Achat bien effectué");
-                                Combat.whatNext(player, Enemies, n);
+                                try {
+                                    Thread.sleep(1000);
+                                } catch (InterruptedException e) {
+                                    throw new RuntimeException(e);
+                                }
+                                Combat.whatNext(player,Enemies,n);
                             } else {
                                 System.out.println("Vous n'avez pas assez de StarDust");
-                                Combat.whatNext(player, Enemies, n);
+                                try {
+                                    Thread.sleep(1000);
+                                } catch (InterruptedException e) {
+                                    throw new RuntimeException(e);
+                                }
+                                Combat.whatNext(player,Enemies,n);
                             }
                             break;
                         case 3:
@@ -256,6 +320,7 @@ public class cli {
                     }
                     break;
                 case 2:
+                    System.out.print("\033[H\033[2J");
                     System.out.flush();
                     System.out.println("Shield :\r\n");
                     System.out.println("Solde :" + player.getCoins() + " SD \r\n");
@@ -266,23 +331,44 @@ public class cli {
                         case 1:
                             if (player.getCoins() >= 300) {
                                 player.setInitialShield(player.getInitialShield() + ((player.getInitialShield() * 5) / 100));
+                                player.setShield(player.getInitialShield());
                                 player.setCoins(player.getCoins() - 300);
                                 System.out.println("Achat bien effectué");
-                                Combat.whatNext(player, Enemies, n);
+                                try {
+                                    Thread.sleep(1000);
+                                } catch (InterruptedException e) {
+                                    throw new RuntimeException(e);
+                                }
+                                Combat.whatNext(player,Enemies,n);
                             } else {
                                 System.out.println("Vous n'avez pas assez de StarDust");
-                                Combat.whatNext(player, Enemies, n);
+                                try {
+                                    Thread.sleep(1000);
+                                } catch (InterruptedException e) {
+                                    throw new RuntimeException(e);
+                                }
+                                Combat.whatNext(player,Enemies,n);
                             }
                             break;
                         case 2:
                             if (player.getCoins() >= 750) {
                                 player.setInitialShield(player.getInitialShield() + ((player.getInitialShield() * 15) / 100));
+                                player.setShield(player.getInitialShield());
                                 player.setCoins(player.getCoins() - 750);
-                                System.out.println("Achat bien effectué");
-                                Combat.whatNext(player, Enemies, n);
+                                System.out.println("Achat bien effectué");try {
+                                    Thread.sleep(1000);
+                                } catch (InterruptedException e) {
+                                    throw new RuntimeException(e);
+                                }
+                                Combat.whatNext(player,Enemies,n);
                             } else {
                                 System.out.println("Vous n'avez pas assez de StarDust");
-                                Combat.whatNext(player, Enemies, n);
+                                try {
+                                    Thread.sleep(1000);
+                                } catch (InterruptedException e) {
+                                    throw new RuntimeException(e);
+                                }
+                                Combat.whatNext(player,Enemies,n);
                             }
                             break;
                         case 3:
@@ -291,6 +377,7 @@ public class cli {
                     }
                     break;
                 case 3:
+                    System.out.print("\033[H\033[2J");
                     System.out.flush();
                     System.out.println("Weapons :\r\n");
                     System.out.println("Solde :" + player.getCoins() + " SD \r\n");
@@ -304,10 +391,20 @@ public class cli {
                                 player.setCoins(player.getCoins() - 500);
                                 player.setWeight(player.getWeight() + 75);
                                 System.out.println("Achat bien effectué");
-                                Combat.whatNext(player, Enemies, n);
+                                try {
+                                    Thread.sleep(1000);
+                                } catch (InterruptedException e) {
+                                    throw new RuntimeException(e);
+                                }
+                                Combat.whatNext(player,Enemies,n);
                             } else {
                                 System.out.println("Vous n'avez pas assez de StarDust");
-                                Combat.whatNext(player, Enemies, n);
+                                try {
+                                    Thread.sleep(1000);
+                                } catch (InterruptedException e) {
+                                    throw new RuntimeException(e);
+                                }
+                                Combat.whatNext(player,Enemies,n);
                             }
                             break;
                         case 2:
@@ -316,10 +413,21 @@ public class cli {
                                 player.setCoins(player.getCoins() - 800);
                                 player.setWeight(player.getWeight() + 188);
                                 System.out.println("Achat bien effectué");
-                                Combat.whatNext(player, Enemies, n);
+
+                                try {
+                                    Thread.sleep(1000);
+                                } catch (InterruptedException e) {
+                                    throw new RuntimeException(e);
+                                }
+                                Combat.whatNext(player,Enemies,n);
                             } else {
                                 System.out.println("Vous n'avez pas assez de StarDust");
-                                Combat.whatNext(player, Enemies, n);
+                                try {
+                                    Thread.sleep(1000);
+                                } catch (InterruptedException e) {
+                                    throw new RuntimeException(e);
+                                }
+                                Combat.whatNext(player,Enemies,n);
                             }
                             break;
                         case 3:
@@ -328,10 +436,20 @@ public class cli {
                                 player.setCoins(player.getCoins() - 1300);
                                 player.setWeight(player.getWeight() + 250);
                                 System.out.println("Achat bien effectué");
-                                Combat.whatNext(player, Enemies, n);
+                                try {
+                                    Thread.sleep(1000);
+                                } catch (InterruptedException e) {
+                                    throw new RuntimeException(e);
+                                }
+                                Combat.whatNext(player,Enemies,n);
                             } else {
                                 System.out.println("Vous n'avez pas assez de StarDust");
-                                Combat.whatNext(player, Enemies, n);
+                                try {
+                                    Thread.sleep(1000);
+                                } catch (InterruptedException e) {
+                                    throw new RuntimeException(e);
+                                }
+                                Combat.whatNext(player,Enemies,n);
                             }
                             break;
                         case 4:
@@ -340,6 +458,7 @@ public class cli {
                     }
                     break;
                 case 4:
+                    System.out.print("\033[H\033[2J");
                     System.out.flush();
                     System.out.println("Ammo :\r\n");
                     System.out.println("Solde :" + player.getCoins() + " SD \r\n");
@@ -352,10 +471,20 @@ public class cli {
                                 player.setDamage(player.getDamage() + ((player.getDamage() * 5) / 100));
                                 player.setCoins(player.getCoins() - 300);
                                 System.out.println("Achat bien effectué");
-                                Combat.whatNext(player, Enemies, n);
+                                try {
+                                    Thread.sleep(1000);
+                                } catch (InterruptedException e) {
+                                    throw new RuntimeException(e);
+                                }
+                                Combat.whatNext(player,Enemies,n);
                             } else {
                                 System.out.println("Vous n'avez pas assez de StarDust");
-                                Combat.whatNext(player, Enemies, n);
+                                try {
+                                    Thread.sleep(1000);
+                                } catch (InterruptedException e) {
+                                    throw new RuntimeException(e);
+                                }
+                                Combat.whatNext(player,Enemies,n);
                             }
                             break;
                         case 2:
@@ -363,11 +492,21 @@ public class cli {
                                 player.setDamage(player.getDamage() + ((player.getDamage() * 15) / 100));
                                 player.setCoins(player.getCoins() - 750);
                                 System.out.println("Achat bien effectué");
-                                Combat.whatNext(player, Enemies, n);
+                                try {
+                                    Thread.sleep(1000);
+                                } catch (InterruptedException e) {
+                                    throw new RuntimeException(e);
+                                }
+                                Combat.whatNext(player,Enemies,n);
 
                             } else {
                                 System.out.println("Vous n'avez pas assez de StarDust");
-                                Combat.whatNext(player, Enemies, n);
+                                try {
+                                    Thread.sleep(1000);
+                                } catch (InterruptedException e) {
+                                    throw new RuntimeException(e);
+                                }
+                                Combat.whatNext(player,Enemies,n);
                             }
                             break;
                         case 3:
@@ -376,10 +515,11 @@ public class cli {
                     }
                     break;
                 case 5:
+                    System.out.print("\033[H\033[2J");
                     System.out.flush();
                     System.out.println("M̷͎̏a̶̭̔r̷͚̚c̷̼̽h̶̹͒é̴̞͗ ̴̬͒N̸̰̂o̶͙̅i̷͈̇r̴͕̉ :\r\n");
                     System.out.println("Solde :" + player.getCoins() + " SD \r\n");
-                    System.out.println("1 - Booster Interstellaire +200% HP/Shield(2500 SD) \r\n2 - Starlight Quantum Annihilator 1500 Damage (3000 SD)\r\n3 - Retour");
+                    System.out.println("1 - Booster Interstellaire +200% HP/Shield(2500 SD) \r\n2 - Starlight Quantum Annihilator 34500 Damage (55000 SD)\r\n3 - Retour");
                     int response5 = scanner.nextInt();
                     scanner.nextLine();
                     switch (response5) {
@@ -387,24 +527,46 @@ public class cli {
                             if (player.getCoins() >= 2500) {
                                 player.setInitialHP(player.getInitialHP() + ((player.getInitialHP() * 200) / 100));
                                 player.setInitialShield(player.getInitialShield() + ((player.getInitialShield() * 200) / 100));
+                                player.setHp(player.getInitialHP());
+                                player.setShield(player.getInitialShield());
                                 player.setCoins(player.getCoins() - 2000);
                                 System.out.println("Achat bien effectué");
-                                Combat.whatNext(player, Enemies, n);
+                                try {
+                                    Thread.sleep(1000);
+                                } catch (InterruptedException e) {
+                                    throw new RuntimeException(e);
+                                }
+                                Combat.whatNext(player,Enemies,n);
                             } else {
                                 System.out.println("Vous n'avez pas assez de StarDust");
-                                Combat.whatNext(player, Enemies, n);
+                                try {
+                                    Thread.sleep(1000);
+                                } catch (InterruptedException e) {
+                                    throw new RuntimeException(e);
+                                }
+                                Combat.whatNext(player,Enemies,n);
                             }
                             break;
                         case 2:
-                            if (player.getCoins() >= 3000) {
+                            if (player.getCoins() >= 55000) {
                                 player.setDamage(1500);
                                 player.setWeight(player.getWeight() + 1000);
-                                player.setCoins(player.getCoins() - 3000);
+                                player.setCoins(player.getCoins() - 55000);
                                 System.out.println("Achat bien effectué");
-                                Combat.whatNext(player, Enemies, n);
+                                try {
+                                    Thread.sleep(1000);
+                                } catch (InterruptedException e) {
+                                    throw new RuntimeException(e);
+                                }
+                                Combat.whatNext(player,Enemies,n);
                             } else {
                                 System.out.println("Vous n'avez pas assez de StarDust");
-                                Combat.whatNext(player, Enemies, n);
+                                try {
+                                    Thread.sleep(1000);
+                                } catch (InterruptedException e) {
+                                    throw new RuntimeException(e);
+                                }
+                                Combat.whatNext(player,Enemies,n);
                             }
                             break;
                         case 3:
@@ -423,13 +585,13 @@ public class cli {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        cli.sauvegardePlayer(player.getHp(), player.getDamage(), player.getShield(), player.getWeight(), player.getName(), player.getCoins());
+        cli.sauvegardeplayer(player.getHp(), player.getDamage(), player.getShield(), player.getWeight(), player.getName(), player.getCoins());
         System.out.println("Sauvegarde automatique des stats du joueur... \r\n");
 
     }
 
-    public static void sauvegardePlayer(int hp, int damage, int shield, int weight, String name, int coins) {
-        File file = new File("SauvegardePlayer.txt");
+    public static void sauvegardeplayer(int hp, int damage, int shield, int weight, String name, int coins) {
+        File file = new File("Sauvegardeplayer.txt");
 
         if (!file.exists()) {
             try {
@@ -470,8 +632,8 @@ public class cli {
         }
     }
 
-    public static Characters LectureSauvegardePlayer() throws IOException {
-        File file = new File("SauvegardePlayer.txt");
+    public static Characters LectureSauvegardeplayer() throws IOException {
+        File file = new File("Sauvegardeplayer.txt");
         FileReader fr = new FileReader(file);
         BufferedReader br = new BufferedReader(fr);
 
@@ -486,7 +648,7 @@ public class cli {
         int shield = Integer.parseInt(sb.get(2));
         int weight = Integer.parseInt(sb.get(3));
         int coins = Integer.parseInt(sb.getLast());
-        Characters player = new Player(hp, damage, shield, weight, sb.get(4), coins);
+        Characters player = new player(hp, damage, shield, weight, sb.get(4), coins);
         return player;
     }
 

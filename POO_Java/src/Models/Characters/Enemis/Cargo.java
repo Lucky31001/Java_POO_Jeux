@@ -17,8 +17,6 @@ public class Cargo extends Characters {
     @Override
     public void takeDamage(int damage) {
         super.takeDamage(damage);
-        System.out.println(this.getName() + ": \n" + this.getShield() + "/" + this.getInitialShield()
-        + " Shield \n" + this.getHp() + "/" + this.getInitialHP() + " HP \n");
     }
 
 }
